@@ -2,6 +2,10 @@ package test;
 
 import java.util.Scanner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import model.Tapoteur;
 
 public class Test {
@@ -163,5 +167,10 @@ public class Test {
 		
 		public static void main(String[] args) {	
 		mainMenu();
+		
+		
+		//Create bdd
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demoJPA");
+		emf.close();
 	}
 }
