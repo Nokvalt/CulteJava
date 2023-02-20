@@ -1,5 +1,8 @@
 package model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Fidele extends Tapoteur {
 
 	public Fidele(String nom, String prenom, String adresse, String dateAdhesion, String login, String password) {
