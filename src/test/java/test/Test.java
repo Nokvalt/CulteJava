@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import model.Tapoteur;
+import context.Singleton;
+import model.*;
+import dao.*;
 
 public class Test {
 	
@@ -42,7 +44,11 @@ public class Test {
 		}
 
 		static Tapoteur connected;
-		//static DAOTapoteur daoT = new DAOTapoteur();
+		static IDAOCulte daoC = Singleton.getInstance().getDaoCulte();
+		static IDAODemande daoD = Singleton.getInstance().getDaoDemande();
+		static IDAOActivite daoA = Singleton.getInstance().getDaoActivite();
+		static IDAOFidele daoF = Singleton.getInstance().getDaoFidele();
+		static IDAOTapoteur daoT = Singleton.getInstance().getDaoTapoteur();
 		
 		
 		public static void mainMenu()
