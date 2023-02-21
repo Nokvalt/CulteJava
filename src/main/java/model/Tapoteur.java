@@ -1,15 +1,36 @@
 package model;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="rang_tapoteur", columnDefinition = "ENUM('fidele','indenteur','compileur','grandDev')")
+@Table(name="Rang")
 public class Tapoteur {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected Integer id;
 	protected String nom;
 	protected String prenom;
 	protected String adresse;
 	protected String dateAdhesion;
 	protected String login;
 	protected String password;
+	
+	
 
 	
+	public Tapoteur() {}
+
+
 	public Tapoteur(String nom,String prenom,String adresse,String dateAdhesion,String login,String password)
 	{
 		this.nom = nom;
@@ -18,6 +39,18 @@ public class Tapoteur {
 		this.dateAdhesion = dateAdhesion;
 		this.login = login;
 		this.password = password;
+	}
+	
+	
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 

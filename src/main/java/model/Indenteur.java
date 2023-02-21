@@ -1,7 +1,14 @@
 package model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+@DiscriminatorValue("R2")
 public class Indenteur extends Tapoteur {
 	
+	@OneToOne(mappedBy="statut")
 	private Demande statutDemande;
 
 	
