@@ -16,9 +16,9 @@ import dao.DAOTapoteur;
 public class Singleton {
 	
 	private IDAOActivite daoActivite = new DAOActivite();
-	private IDAOCulte daoBiome = new DAOCulte();
-	private IDAODemande daoCompte = new DAODemande();
-	private IDAOTapoteur daoEspece = new DAOTapoteur();
+	private IDAOCulte daoCulte = new DAOCulte();
+	private IDAODemande daoDemande = new DAODemande();
+	private IDAOTapoteur daoTapoteur = new DAOTapoteur();
 	EntityManagerFactory emf= Persistence.createEntityManagerFactory("cultejava");
 	
 	private static Singleton instance=null;
@@ -34,6 +34,7 @@ public class Singleton {
 		return instance;
 	}
 
+
 	public IDAOActivite getDaoActivite() {
 		return daoActivite;
 	}
@@ -44,33 +45,33 @@ public class Singleton {
 	}
 
 
-	public IDAOCulte getDaoBiome() {
-		return daoBiome;
+	public IDAOCulte getDaoCulte() {
+		return daoCulte;
 	}
 
 
-	public void setDaoBiome(IDAOCulte daoBiome) {
-		this.daoBiome = daoBiome;
+	public void setDaoCulte(IDAOCulte daoCulte) {
+		this.daoCulte = daoCulte;
 	}
 
 
-	public IDAODemande getDaoCompte() {
-		return daoCompte;
+	public IDAODemande getDaoDemande() {
+		return daoDemande;
 	}
 
 
-	public void setDaoCompte(IDAODemande daoCompte) {
-		this.daoCompte = daoCompte;
+	public void setDaoDemande(IDAODemande daoDemande) {
+		this.daoDemande = daoDemande;
 	}
 
 
-	public IDAOTapoteur getDaoEspece() {
-		return daoEspece;
+	public IDAOTapoteur getDaoTapoteur() {
+		return daoTapoteur;
 	}
 
 
-	public void setDaoEspece(IDAOTapoteur daoEspece) {
-		this.daoEspece = daoEspece;
+	public void setDaoTapoteur(IDAOTapoteur daoTapoteur) {
+		this.daoTapoteur = daoTapoteur;
 	}
 
 
