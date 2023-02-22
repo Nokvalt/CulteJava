@@ -5,56 +5,46 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import context.Singleton;
-import model.Demande;
+import model.Evenement;
 
-public class DAODemande implements IDAODemande {
+public class DAOEvenement implements IDAOEvenement {
 
 	@Override
-	public Demande findById(Integer id) {
+	public Evenement findById(Integer id) {
 		EntityManager em = Singleton.getInstance().getEmf().createEntityManager();
-		Demande demande = em.find(Demande.class,id);
+		Evenement evenement = em.find(Evenement.class,id);
 		em.close();
-		return demande;
+		return evenement;
 	}
 
 	@Override
-	public List<Demande> findAll() {
+	public List<Evenement> findAll() {
 		EntityManager em = Singleton.getInstance().getEmf().createEntityManager();
 		
-		List<Demande> demandes = em.createQuery("from Demande").getResultList();
+		List<Evenement> evenements = em.createQuery("from Evenement").getResultList();
 		em.close();
-		return demandes;
+		return evenements;
 	}
 
 	@Override
-	public Demande save(Demande demande) {
+	public Evenement save(Evenement evenement) {
 		EntityManager em = Singleton.getInstance().getEmf().createEntityManager();
 		em.getTransaction().begin();
-		demande = em.merge(demande);
+		evenement = em.merge(evenement);
 		em.getTransaction().commit();
 		em.close();
-		return demande;
+		return evenement;
 	}
 
 	@Override
 	public void delete(Integer id) {
 		EntityManager em = Singleton.getInstance().getEmf().createEntityManager();
-		Demande demande = em.find(Demande.class,id);
+		Evenement evenement = em.find(Evenement.class,id);
 		em.getTransaction().begin();
-		em.remove(demande);
+		em.remove(evenement);
 		em.getTransaction().commit();
 		em.close();	
+		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
