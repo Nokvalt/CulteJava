@@ -10,7 +10,7 @@ public class GrandDev extends Tapoteur {
 
 	private String colPull;
 	
-	@OneToOne(mappedBy="Dave")
+	@OneToOne
 	private Culte culte;
 	
 	
