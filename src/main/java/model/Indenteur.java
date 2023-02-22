@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue("R2")
+@DiscriminatorValue("indenteur")
 public class Indenteur extends Tapoteur {
 	
 	@OneToOne(mappedBy="indenteur")

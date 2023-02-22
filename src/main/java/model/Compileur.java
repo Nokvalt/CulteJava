@@ -6,7 +6,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("R3")
+@DiscriminatorValue("compileur")
 public class Compileur extends Tapoteur {
 	
 	public Compileur() {}

@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue("R4")
+@DiscriminatorValue("grandDev")
 public class GrandDev extends Tapoteur {
 	
 	@Column(length=10)

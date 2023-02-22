@@ -2,9 +2,11 @@ package model;
 
 import java.time.LocalDate;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("fidele")
 public class Fidele extends Tapoteur {
 
 	public Fidele() {}
