@@ -11,7 +11,7 @@ public class Indenteur extends Tapoteur {
 	@OneToOne(mappedBy="statut")
 	private Demande statutDemande;
 
-	
+	public Indenteur() {}
 
 	public Indenteur(String nom, String prenom, String adresse, String dateAdhesion, String login, String password) {
 		super(nom, prenom, adresse, dateAdhesion, login, password);
