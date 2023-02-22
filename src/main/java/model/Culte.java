@@ -2,12 +2,29 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Culte {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private double argent;
 	private int effectif;
+	@ManyToMany
 	private List <Evenement> listEvenement = new ArrayList();
+	@ManyToMany
 	private List <Tapoteur> listTapoteur = new ArrayList();
+	@OneToOne
 	private GrandDev Dave;
 	
 	public Culte(double argent, int effectif, List<Evenement> listEvenement, List<Tapoteur> listTapoteur,
