@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="rang_tapoteur", columnDefinition = "ENUM('fidele','indenteur','compileur','grandDev')")
-public class Tapoteur {
+public abstract class Tapoteur {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

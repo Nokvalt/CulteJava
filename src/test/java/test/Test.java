@@ -1,5 +1,6 @@
 package test;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -158,7 +159,16 @@ public class Test {
 		
 		public static void main(String[] args) {	
 		//InvocationASCII.invoquerGosling();
+		Adresse a1 = new Adresse ("14","Rue de Christian Clavier","Limoges","87000","Fronce");
+		Adresse a2 = new Adresse ("13","Rue du Mulot","Limoges","87000","Fronce");
+		Adresse a3 = new Adresse ("55","Rue du Port","Limoges","87000","Fronce");
 		
+		
+		GrandDev Dave = new GrandDev ("Davidson","Dave",a1,LocalDate.now(),"dev","dev","saumon");
+		Indenteur JordanRolland = new Indenteur ("Rolland","Jordan",a2,LocalDate.now(),"rolland","rolland");
+		Compileur MarianneGuisset = new Compileur ("Guisset","Marianne",a1,LocalDate.now(),"guisset","guisset");
+		
+			
 		
 		//Create bdd
 	}
