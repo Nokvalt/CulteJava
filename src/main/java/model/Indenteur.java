@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -13,7 +15,7 @@ public class Indenteur extends Tapoteur {
 
 	public Indenteur() {}
 
-	public Indenteur(String nom, String prenom, String adresse, String dateAdhesion, String login, String password) {
+	public Indenteur(String nom, String prenom, Adresse adresse, LocalDate dateAdhesion, String login, String password) {
 		super(nom, prenom, adresse, dateAdhesion, login, password);
 		
 	}

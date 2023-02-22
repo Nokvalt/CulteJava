@@ -1,9 +1,11 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -12,10 +14,14 @@ public class Demande {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	@Column(nullable=false)
 	private double montant;
+	@Column(nullable=false)
 	private String descriptif;
+	@Column(nullable=false)
 	private Statut statut;
 	@OneToOne
+	@JoinColumn(name="indenteur", nullable=false)
 	private Indenteur indenteur;
 	
 	public Demande() {}

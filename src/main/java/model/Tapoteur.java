@@ -1,32 +1,42 @@
 package model;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="rang_tapoteur", columnDefinition = "ENUM('fidele','indenteur','compileur','grandDev')")
-@Table(name="Rang")
 public class Tapoteur {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
+	@Column(length=50, nullable=false)
 	protected String nom;
+	@Column(length=50, nullable=false)
 	protected String prenom;
-	protected String adresse;
-	protected String dateAdhesion;
+	@Embedded
+	protected Adresse adresse;
+	@Column(nullable=false)
+	protected LocalDate dateAdhesion;
+	@Column(length=25, nullable=false)
 	protected String login;
+	@Column(length=25, nullable=false)
 	protected String password;
 	
 	@ManyToOne
+	@JoinColumn(name="culte", nullable=false)
 	protected Culte culte;
 	
 
@@ -34,7 +44,7 @@ public class Tapoteur {
 	public Tapoteur() {}
 
 
-	public Tapoteur(String nom,String prenom,String adresse,String dateAdhesion,String login,String password)
+	public Tapoteur(String nom,String prenom,Adresse adresse,LocalDate dateAdhesion,String login,String password)
 	{
 		this.nom = nom;
 		this.prenom = prenom;
@@ -77,22 +87,22 @@ public class Tapoteur {
 	}
 
 
-	public String getAdresse() {
+	public Adresse getAdresse() {
 		return adresse;
 	}
 
 
-	public void setAdresse(String adresse) {
+	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
 
 
-	public String getDateAdhesion() {
+	public LocalDate getDateAdhesion() {
 		return dateAdhesion;
 	}
 
 
-	public void setDateAdhesion(String dateAdhesion) {
+	public void setDateAdhesion(LocalDate dateAdhesion) {
 		this.dateAdhesion = dateAdhesion;
 	}
 
@@ -114,6 +124,23 @@ public class Tapoteur {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public Culte getCulte() {
+		return culte;
+	}
+
+
+	public void setCulte(Culte culte) {
+		this.culte = culte;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Tapoteur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", dateAdhesion="
+				+ dateAdhesion + ", login=" + login + ", password=" + password + ", culte=" + culte + "]";
 	}
 	
 	

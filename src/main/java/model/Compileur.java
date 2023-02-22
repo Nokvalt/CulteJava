@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,7 +11,7 @@ public class Compileur extends Tapoteur {
 	
 	public Compileur() {}
 
-	public Compileur(String nom, String prenom, String adresse, String dateAdhesion, String login, String password) {
+	public Compileur(String nom, String prenom, Adresse adresse, LocalDate dateAdhesion, String login, String password) {
 		super(nom, prenom, adresse, dateAdhesion, login, password);
 		
 	}
