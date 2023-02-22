@@ -22,7 +22,7 @@ public class Culte {
 	private int effectif;
 	@OneToMany(mappedBy="culte")
 	private List <Evenement> listEvenement = new ArrayList();
-	@ManyToMany(mappedBy="culte")
+	@OneToMany(mappedBy="culte")
 	private List <Tapoteur> listTapoteur = new ArrayList();
 	@OneToOne(mappedBy="culte")
 	private GrandDev Dave;
