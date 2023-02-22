@@ -15,7 +15,7 @@ public class Demande {
 	private double montant;
 	private String descriptif;
 	private Statut statut;
-	@OneToOne(mappedBy="statutDemande")
+	@OneToOne
 	private Indenteur indenteur;
 	
 	public Demande() {}
