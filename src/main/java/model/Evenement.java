@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Evenement {
@@ -20,6 +21,9 @@ public class Evenement {
 	@Column(name="activite",columnDefinition = "ENUM('feteCreation', 'naissanceProphete', 'fetePopups', 'rassemblement', 'pelerinnage', 'promotion')")
 	@Enumerated(EnumType.STRING)
 	private Activite activiteEvent;
+	
+	@ManyToOne
+	private Culte culte;
 	
 	public Evenement() {}
 	

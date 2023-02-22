@@ -20,11 +20,11 @@ public class Culte {
 	
 	private double argent;
 	private int effectif;
-	@OneToMany
+	@OneToMany(mappedBy="culte")
 	private List <Evenement> listEvenement = new ArrayList();
-	@ManyToMany
+	@ManyToMany(mappedBy="culte")
 	private List <Tapoteur> listTapoteur = new ArrayList();
-	@OneToOne
+	@OneToOne(mappedBy="culte")
 	private GrandDev Dave;
 	
 	public Culte(double argent, int effectif, List<Evenement> listEvenement, List<Tapoteur> listTapoteur,
