@@ -25,6 +25,25 @@ public class Demande {
 		this.descriptif = descriptif;
 		this.statut = statut;
 	}
+	
+	
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Indenteur getIndenteur() {
+		return indenteur;
+	}
+
+	public void setIndenteur(Indenteur indenteur) {
+		this.indenteur = indenteur;
+	}
 
 	public double getMontant() {
 		return montant;

@@ -3,8 +3,8 @@ package context;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import dao.IDAOActivite;
-import dao.DAOActivite;
+import dao.IDAOEvenement;
+import dao.DAOEvenement;
 import dao.IDAOCulte;
 import dao.DAOCulte;
 import dao.IDAODemande;
@@ -15,10 +15,10 @@ import dao.DAOTapoteur;
 
 public class Singleton {
 	
-	private IDAOActivite daoActivite = new DAOActivite();
 	private IDAOCulte daoCulte = new DAOCulte();
 	private IDAODemande daoDemande = new DAODemande();
 	private IDAOTapoteur daoTapoteur = new DAOTapoteur();
+	private IDAOEvenement daoEvenement = new DAOEvenement();
 	EntityManagerFactory emf= Persistence.createEntityManagerFactory("cultejava");
 	
 	private static Singleton instance=null;
@@ -32,16 +32,6 @@ public class Singleton {
 			instance=new Singleton();
 		}
 		return instance;
-	}
-
-
-	public IDAOActivite getDaoActivite() {
-		return daoActivite;
-	}
-
-
-	public void setDaoActivite(IDAOActivite daoActivite) {
-		this.daoActivite = daoActivite;
 	}
 
 

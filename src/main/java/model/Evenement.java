@@ -1,11 +1,27 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Evenement {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	private String nom;
+	private String dateEvent;
+	private String lieu;
 	
-	protected String nom;
-	protected String dateEvent;
-	protected String lieu;
-	protected Activite activiteEvent;
+	@Column(name="activite",columnDefinition = "ENUM('feteCreation', 'naissanceProphete', 'fetePopups', 'rassemblement', 'pelerinnage', 'promotion')")
+	@Enumerated(EnumType.STRING)
+	private Activite activiteEvent;
+	
+	public Evenement() {}
 	
 	public Evenement(String nom, String dateEvent, String lieu, Activite activiteEvent) {
 		super();
@@ -13,6 +29,14 @@ public class Evenement {
 		this.dateEvent = dateEvent;
 		this.lieu = lieu;
 		this.activiteEvent = activiteEvent;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNom() {
