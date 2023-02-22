@@ -47,11 +47,9 @@ public class Test {
 		static Tapoteur connected;
 		static IDAOCulte daoC = Singleton.getInstance().getDaoCulte();
 		static IDAODemande daoD = Singleton.getInstance().getDaoDemande();
-		static IDAOActivite daoA = Singleton.getInstance().getDaoActivite();
-		static IDAOFidele daoF = Singleton.getInstance().getDaoFidele();
 		static IDAOTapoteur daoT = Singleton.getInstance().getDaoTapoteur();
 		
-		
+		/*
 		public static void mainMenu()
 		{
 			
@@ -152,18 +150,16 @@ public class Test {
 		
 		
 		
-		
+		*/
 		
 		
 		
 		
 		
 		public static void main(String[] args) {	
-		InvocationASCII.invoquerGosling();
+		//InvocationASCII.invoquerGosling();
 		
 		
 		//Create bdd
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demoJPA");
-		emf.close();
 	}
 }
