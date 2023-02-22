@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("R4")
@@ -9,6 +10,8 @@ public class GrandDev extends Tapoteur {
 
 	private String colPull;
 	
+	@OneToOne(mappedBy="Dave")
+	private Culte culte;
 	
 	
 	public GrandDev() {}
