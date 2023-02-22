@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("R2")
 public class Indenteur extends Tapoteur {
 	
-	@OneToOne(mappedBy="statut")
+	@OneToOne(mappedBy="indenteur")
 	private Demande statutDemande;
 
 	public Indenteur() {}
