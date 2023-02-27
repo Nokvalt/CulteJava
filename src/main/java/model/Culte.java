@@ -29,13 +29,11 @@ public class Culte {
 	@OneToOne(mappedBy="culte")
 	private GrandDev Dave;
 	
-	public Culte(double argent, int effectif, List<Evenement> listEvenement, List<Tapoteur> listTapoteur,
+	public Culte(double argent, int effectif,
 			GrandDev dave) {
 		super();
 		this.argent = argent;
 		this.effectif = effectif;
-		this.listEvenement = listEvenement;
-		this.listTapoteur = listTapoteur;
 		Dave = dave;
 	}
 public Culte() {}

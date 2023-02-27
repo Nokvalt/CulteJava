@@ -26,10 +26,10 @@ public class Demande {
 	
 	public Demande() {}
 	
-	public Demande(double montant, String descriptif, Statut statut) {
+	public Demande(double montant, String descriptif) {
 		this.montant = montant;
 		this.descriptif = descriptif;
-		this.statut = statut;
+		this.statut = Statut.enAttente;
 	}
 	
 	

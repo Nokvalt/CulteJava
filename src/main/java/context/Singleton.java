@@ -43,6 +43,17 @@ public class Singleton {
 	public void setDaoCulte(IDAOCulte daoCulte) {
 		this.daoCulte = daoCulte;
 	}
+	
+	
+
+	public IDAOEvenement getDaoEvenement() {
+		return daoEvenement;
+	}
+
+
+	public void setDaoEvenement(IDAOEvenement daoEvenement) {
+		this.daoEvenement = daoEvenement;
+	}
 
 
 	public IDAODemande getDaoDemande() {

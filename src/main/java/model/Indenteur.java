@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 public class Indenteur extends Tapoteur {
 	
 	@OneToOne(mappedBy="indenteur")
-	private Demande statutDemande;
+	private Demande demande;
 
 	public Indenteur() {}
 
@@ -20,12 +20,12 @@ public class Indenteur extends Tapoteur {
 		
 	}
 	
-	public Demande getStatutDemande() {
-		return statutDemande;
+	public Demande getDemande() {
+		return demande;
 	}
 
-	public void setStatutDemande(Demande statutDemande) {
-		this.statutDemande = statutDemande;
+	public void setDemande(Demande statutDemande) {
+		this.demande = statutDemande;
 	}
 	
 
