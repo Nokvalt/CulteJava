@@ -1,11 +1,10 @@
 package test;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import context.Singleton;
 import model.*;
@@ -49,6 +48,7 @@ public class Test {
 		static IDAOCulte daoC = Singleton.getInstance().getDaoCulte();
 		static IDAODemande daoD = Singleton.getInstance().getDaoDemande();
 		static IDAOTapoteur daoT = Singleton.getInstance().getDaoTapoteur();
+		static IDAOEvenement daoE = Singleton.getInstance().getDaoEvenement();
 		
 		/*
 		public static void mainMenu()
@@ -159,6 +159,8 @@ public class Test {
 		
 		public static void main(String[] args) {	
 		//InvocationASCII.invoquerGosling();
+			
+		//Create objects
 		Adresse a1 = new Adresse ("14","Rue de Christian Clavier","Limoges","87000","Fronce");
 		Adresse a2 = new Adresse ("13","Rue du Mulot","Limoges","87000","Fronce");
 		Adresse a3 = new Adresse ("55","Rue du Port","Limoges","87000","Fronce");
@@ -167,9 +169,27 @@ public class Test {
 		GrandDev Dave = new GrandDev ("Davidson","Dave",a1,LocalDate.now(),"dev","dev","saumon");
 		Indenteur JordanRolland = new Indenteur ("Rolland","Jordan",a2,LocalDate.now(),"rolland","rolland");
 		Compileur MarianneGuisset = new Compileur ("Guisset","Marianne",a1,LocalDate.now(),"guisset","guisset");
+		Fidele FrancisCatrel = new Fidele("Francis", "Catrel", a3, LocalDate.now(), "catrel", "catrel4ever");
 		
-			
+		Demande demande = new Demande(135, "achat d'un couvre chef svp");
+		JordanRolland.setDemande(demande);
 		
+		Evenement evenement = new Evenement("fete", LocalDate.now(), "Toulouse", Activite.rassemblement);
+		
+		Culte culteJava = new Culte(284.5, 4, Dave);
+		culteJava.getListEvenement().add(evenement);
+		Collections.addAll(culteJava.getListTapoteur(), JordanRolland,MarianneGuisset,FrancisCatrel);
+		
+
 		//Create bdd
+		EntityManager em = Singleton.getInstance().getEmf().createEntityManager();
+		daoT.save(Dave);
+		daoT.save(JordanRolland);
+		daoT.save(MarianneGuisset);
+		daoT.save(FrancisCatrel);
+		daoE.save(evenement);
+		
+		em.close();
+		
 	}
 }
