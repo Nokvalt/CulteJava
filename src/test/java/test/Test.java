@@ -1,13 +1,8 @@
 package test;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Scanner;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import c.culte.dao.*;
-import c.culte.model.*;
+import c.culte.model.Tapoteur;
 
 public class Test {
 	
