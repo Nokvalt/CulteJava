@@ -1,4 +1,4 @@
-package model;
+package c.culte.model;
 
 public enum Activite {
 	

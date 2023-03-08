@@ -1,11 +1,11 @@
-package model;
+package c.culte.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("indenteur")
@@ -20,6 +20,7 @@ public class Indenteur extends Tapoteur {
 		super(nom, prenom, adresse, dateAdhesion, login, password);
 		
 	}
+	
 	
 	public Demande getDemande() {
 		return demande;

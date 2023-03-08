@@ -4,12 +4,10 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Scanner;
 
-import javax.persistence.EntityManager;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import context.Singleton;
-import model.*;
-import dao.*;
-import ascii.*;
+import c.culte.dao.*;
+import c.culte.model.*;
 
 public class Test {
 	
@@ -45,10 +43,6 @@ public class Test {
 		}
 
 		static Tapoteur connected;
-		static IDAOCulte daoC = Singleton.getInstance().getDaoCulte();
-		static IDAODemande daoD = Singleton.getInstance().getDaoDemande();
-		static IDAOTapoteur daoT = Singleton.getInstance().getDaoTapoteur();
-		static IDAOEvenement daoE = Singleton.getInstance().getDaoEvenement();
 		
 		/*
 		public static void mainMenu()
@@ -161,7 +155,7 @@ public class Test {
 		//InvocationASCII.invoquerGosling();
 			
 		//Create objects
-		Adresse a1 = new Adresse ("14","Rue de Christian Clavier","Limoges","87000","Fronce");
+		/*Adresse a1 = new Adresse ("14","Rue de Christian Clavier","Limoges","87000","Fronce");
 		Adresse a2 = new Adresse ("13","Rue du Mulot","Limoges","87000","Fronce");
 		Adresse a3 = new Adresse ("55","Rue du Port","Limoges","87000","Fronce");
 		
@@ -205,7 +199,7 @@ public class Test {
 		evenement.setCulte(culteJava);
 		daoE.save(evenement);
 		
-		em.close();
+		em.close();*/
 		
 	}
 }
