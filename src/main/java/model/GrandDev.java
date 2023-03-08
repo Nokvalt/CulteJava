@@ -14,8 +14,7 @@ public class GrandDev extends Tapoteur {
 	@Column(length=10)
 	private String colPull;
 	
-	@OneToOne
-	private Culte culte;
+	
 	
 	
 	public GrandDev() {}

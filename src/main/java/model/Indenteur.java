@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -10,7 +11,7 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("indenteur")
 public class Indenteur extends Tapoteur {
 	
-	@OneToOne(mappedBy="indenteur")
+	@OneToOne(mappedBy="indenteur", cascade = CascadeType.ALL)
 	private Demande demande;
 
 	public Indenteur() {}

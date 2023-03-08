@@ -15,25 +15,26 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Evenement {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(length=150, nullable=false)
+	@Column(length = 150, nullable = false)
 	private String nom;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private LocalDate dateEvent;
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
 	private String lieu;
-	
-	@Column(name="activite",columnDefinition = "ENUM('feteCreation', 'naissanceProphete', 'fetePopups', 'rassemblement', 'pelerinnage', 'promotion')")
+
+	@Column(name = "activite", columnDefinition = "ENUM('feteCreation', 'naissanceProphete', 'fetePopups', 'rassemblement', 'pelerinnage', 'promotion')")
 	@Enumerated(EnumType.STRING)
 	private Activite activiteEvent;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="culte", nullable=false)
+	@JoinColumn(name = "culte", nullable = false)
 	private Culte culte;
-	
-	public Evenement() {}
-	
+
+	public Evenement() {
+	}
+
 	public Evenement(String nom, LocalDate dateEvent, String lieu, Activite activiteEvent) {
 		super();
 		this.nom = nom;
@@ -41,7 +42,7 @@ public class Evenement {
 		this.lieu = lieu;
 		this.activiteEvent = activiteEvent;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -81,7 +82,13 @@ public class Evenement {
 	public void setActiviteEvent(Activite activiteEvent) {
 		this.activiteEvent = activiteEvent;
 	}
-	
-	
+
+	public Culte getCulte() {
+		return culte;
+	}
+
+	public void setCulte(Culte culte) {
+		this.culte = culte;
+	}
 
 }

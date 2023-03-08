@@ -173,20 +173,36 @@ public class Test {
 		
 		Demande demande = new Demande(135, "achat d'un couvre chef svp");
 		JordanRolland.setDemande(demande);
+		demande.setIndenteur(JordanRolland);
 		
 		Evenement evenement = new Evenement("fete", LocalDate.now(), "Toulouse", Activite.rassemblement);
 		
-		Culte culteJava = new Culte(284.5, 4, Dave);
+		Culte culteJava = new Culte(284.5, 4);
 		culteJava.getListEvenement().add(evenement);
 		Collections.addAll(culteJava.getListTapoteur(), JordanRolland,MarianneGuisset,FrancisCatrel);
 		
 
 		//Create bdd
 		EntityManager em = Singleton.getInstance().getEmf().createEntityManager();
-		daoT.save(Dave);
+		culteJava = daoC.save(culteJava);
+		
+		Dave.setCulte(culteJava);
+		Dave = (GrandDev) daoT.save(Dave);
+		
+		culteJava.setDave(Dave);
+		daoC.save(culteJava);
+		
+		
+		JordanRolland.setCulte(culteJava);
 		daoT.save(JordanRolland);
+		
+		MarianneGuisset.setCulte(culteJava);
 		daoT.save(MarianneGuisset);
+		
+		FrancisCatrel.setCulte(culteJava);
 		daoT.save(FrancisCatrel);
+		
+		evenement.setCulte(culteJava);
 		daoE.save(evenement);
 		
 		em.close();

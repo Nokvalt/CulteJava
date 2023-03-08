@@ -26,7 +26,7 @@ public class Culte {
 	private List <Evenement> listEvenement = new ArrayList();
 	@OneToMany(mappedBy="culte")
 	private List <Tapoteur> listTapoteur = new ArrayList();
-	@OneToOne(mappedBy="culte")
+	@OneToOne
 	private GrandDev Dave;
 	
 	public Culte(double argent, int effectif,
@@ -36,6 +36,15 @@ public class Culte {
 		this.effectif = effectif;
 		Dave = dave;
 	}
+	
+
+	
+	public Culte(double argent, int effectif) {
+		super();
+		this.argent = argent;
+		this.effectif = effectif;
+	}
+	
 public Culte() {}
 
 	public double getArgent() {
