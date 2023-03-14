@@ -2,6 +2,7 @@ package c.culte.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.api.Views;
@@ -36,6 +37,7 @@ public abstract class Tapoteur {
 	protected Adresse adresse;
 	@Column(nullable=false)
 	@JsonView(Views.Tapoteur.class)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	protected LocalDate dateAdhesion;
 	@Column(length=25, nullable=false)
 	@JsonView(Views.Tapoteur.class)

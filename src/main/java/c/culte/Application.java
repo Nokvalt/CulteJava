@@ -7,14 +7,12 @@ import java.util.Scanner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import c.culte.config.AppConfig;
-import c.culte.dao.IDAOCulte;
 import c.culte.dao.IDAODemande;
 import c.culte.dao.IDAOEvenement;
 import c.culte.dao.IDAOTapoteur;
 import c.culte.model.Activite;
 import c.culte.model.Adresse;
 import c.culte.model.Compileur;
-import c.culte.model.Culte;
 import c.culte.model.Demande;
 import c.culte.model.Evenement;
 import c.culte.model.Fidele;

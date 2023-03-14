@@ -27,4 +27,5 @@ public class IndenteurResponse extends TapoteurResponse{
 	}
 	
 	
+	
 }
