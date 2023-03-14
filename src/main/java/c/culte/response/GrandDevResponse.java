@@ -1,6 +1,6 @@
 package c.culte.response;
 
-public class GrandDevResponse {
+public class GrandDevResponse extends TapoteurResponse {
 	private String couleurPull;
 
 	public String getCouleurPull() {

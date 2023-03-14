@@ -1,5 +1,5 @@
 package c.culte.response;
 
-public class CompileurResponse {
+public class CompileurResponse extends TapoteurResponse{
 	
 }

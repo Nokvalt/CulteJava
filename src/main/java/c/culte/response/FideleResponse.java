@@ -4,7 +4,7 @@ import java.util.List;
 
 import c.culte.model.Evenement;
 
-public class FideleResponse {
+public class FideleResponse extends TapoteurResponse{
 	/*private List<EvenementResponse> inscriptions;
 
 	public List<EvenementResponse> getInscriptions() {

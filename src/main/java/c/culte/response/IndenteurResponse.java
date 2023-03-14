@@ -1,6 +1,6 @@
 package c.culte.response;
 
-public class IndenteurResponse {
+public class IndenteurResponse extends TapoteurResponse{
 	
 	private Integer demandeId;
 	private double demandeMontant;

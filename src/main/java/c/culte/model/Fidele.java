@@ -3,6 +3,9 @@ package c.culte.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import c.culte.api.Views;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -13,6 +16,7 @@ import jakarta.persistence.ManyToMany;
 @DiscriminatorValue("fidele")
 public class Fidele extends Tapoteur {
 	
+	@JsonView(Views.Fidele.class)
 	@ManyToMany
 	@JoinTable(name="inscriptions", joinColumns = @JoinColumn(name = "fideleId"), inverseJoinColumns = @JoinColumn(name = "evenementId"))
 	private List<Evenement> inscriptions;
