@@ -21,7 +21,7 @@
 		
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>fr.formation.config.AppConfig</param-value>
+			<param-value>c.culte.config.AppConfig</param-value>
 		</init-param>
 		
 		<load-on-startup>1</load-on-startup>

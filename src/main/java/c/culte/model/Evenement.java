@@ -1,6 +1,7 @@
 package c.culte.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -27,8 +29,11 @@ public class Evenement {
 	@Column(name = "activite", columnDefinition = "ENUM('feteCreation', 'naissanceProphete', 'fetePopups', 'rassemblement', 'pelerinnage', 'promotion')")
 	@Enumerated(EnumType.STRING)
 	private Activite activiteEvent;
-
-	@ManyToOne()
+	
+	@ManyToMany(mappedBy="inscriptions")
+	private List<Fidele> inscrits;
+	
+	@ManyToOne
 	@JoinColumn(name = "culte", nullable = false)
 	private Culte culte;
 
