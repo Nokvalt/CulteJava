@@ -1,10 +1,16 @@
 package c.culte.response;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public abstract class TapoteurResponse {
 	protected Integer id;
 	protected String nom;
 	protected String prenom;
 	protected String login;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	protected LocalDate dateAdhesion;
 	protected double sommeDon;
 	
 	public Integer getId() {
@@ -38,6 +44,13 @@ public abstract class TapoteurResponse {
 		this.sommeDon = sommeDon;
 	}
 	
+	
+	public LocalDate getDateAdhesion() {
+		return dateAdhesion;
+	}
+	public void setDateAdhesion(LocalDate dateAdhesion) {
+		this.dateAdhesion = dateAdhesion;
+	}
 	public abstract String getRang();
 	
 }

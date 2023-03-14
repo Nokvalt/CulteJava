@@ -1,5 +1,6 @@
 package c.culte.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -30,6 +31,10 @@ import c.culte.request.CompileurRequest;
 import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
+import c.culte.response.CompileurResponse;
+import c.culte.response.FideleResponse;
+import c.culte.response.GrandDevResponse;
+import c.culte.response.IndenteurResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -49,13 +54,73 @@ public class TapoteurApiController {
 	
 	//FIND ALL FIDELES
 	@GetMapping("/fideles")
+	public List<FideleResponse> findAllFidele(){
+		List<Fidele> fideles = daoT.findAllFidele();
+		List<FideleResponse> responses = new ArrayList();
+		
+		for (Fidele f : fideles) {
+			FideleResponse resp = new FideleResponse();
+			BeanUtils.copyProperties(f, resp);
+			
+			responses.add(resp);
+		}
+		
+		return responses;
+	}
+	
+	//FIND ALL COMPILEUR
+		@GetMapping("/compileurs")
+		public List<CompileurResponse> findAllCompileur(){
+			List<Compileur> compileurs = daoT.findAllCompileur();
+			List<CompileurResponse> responses = new ArrayList();
+			
+			for (Compileur c : compileurs) {
+				CompileurResponse resp = new CompileurResponse();
+				BeanUtils.copyProperties(c, resp);
+				
+				responses.add(resp);
+			}
+			
+			return responses;
+		}
+		
+	//FIND ALL INDENTEURS
+	@GetMapping("/indenteurs")
+	public List<IndenteurResponse> findAllIndenteur(){
+		List<Indenteur> indenteurs = daoT.findAllIndenteur();
+		List<IndenteurResponse> responses = new ArrayList();
+					
+		for (Indenteur i : indenteurs) {
+			IndenteurResponse resp = new IndenteurResponse();
+			BeanUtils.copyProperties(i, resp);
+						
+			responses.add(resp);
+		}
+					
+		return responses;
+	}
+	
+	//FIND GRAND DEV
+	@GetMapping("/GrandDev")
+	public List<GrandDevResponse> findGrandDev(){
+		List<GrandDev> dave = daoT.findAllGrandDev();
+		List<GrandDevResponse> responses = new ArrayList();
+						
+		for (GrandDev d : dave) {
+			GrandDevResponse resp = new GrandDevResponse();
+			BeanUtils.copyProperties(d, resp);
+							
+			responses.add(resp);
+		}
+						
+		return responses;
+	}
+	
+	
+	/*
 	@JsonView(Views.Fidele.class)
 	public List<Fidele> findAllFidele(){
 		return daoT.findAllFidele();
-	}
-	/*public List<FideleResponse> findAllFidele(){
-	List<Fidele> fideles = daoT.findAllFidele();
-	return ;
 	}*/
 	
 	// --------- FIND BY ID --------- //

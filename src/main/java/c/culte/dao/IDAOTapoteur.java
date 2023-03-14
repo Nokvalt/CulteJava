@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import c.culte.model.Compileur;
 import c.culte.model.Fidele;
+import c.culte.model.GrandDev;
 import c.culte.model.Indenteur;
 import c.culte.model.Tapoteur;
 
@@ -21,7 +22,7 @@ public interface IDAOTapoteur extends JpaRepository<Tapoteur,Integer> {
 	public List<Compileur> findAllCompileur();
 	
 	@Query("SELECT d FROM GrandDev d")
-	public List<Compileur> findAllGrandDev();
+	public List<GrandDev> findAllGrandDev();
 	
 	
 }
