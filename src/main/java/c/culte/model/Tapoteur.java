@@ -34,7 +34,7 @@ public abstract class Tapoteur {
 	protected String login;
 	@Column(length=25, nullable=false)
 	protected String password;
-	@Column(nullable=true)
+	@Column(nullable=false)
 	protected double sommeDon;
 	
 	@ManyToOne

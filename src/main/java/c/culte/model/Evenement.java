@@ -3,6 +3,9 @@ package c.culte.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import c.culte.api.Views;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +21,7 @@ import jakarta.persistence.ManyToOne;
 public class Evenement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.Evenement.class)
 	private Integer id;
 	@Column(length = 150, nullable = false)
 	private String nom;

@@ -30,17 +30,17 @@ public class CulteApiController {
 		return this.daoCulte.findAll();
 	}
 	
-	@GetMapping("/by-tapoteur-id") // /api/culte/by-tapoteur-id?produitId=1
-	@JsonView(Views.Culte.class)
-	public List<Tapoteur> findAllByTapoteurId(@RequestParam int tapoteurId) {
-		return this.daoCulte.findAllByTapoteurId(tapoteurId);
-	}
-	
-	@GetMapping("/by-tapoteur-id/{tapoteurId}") // /api/culte/by-tapoteur-id/1
-	@JsonView(Views.Culte.class)
-	public List<Tapoteur> findAllByProduitId(@PathVariable int tapoteurId) {
-		return this.daoCulte.findAllByTapoteurId(tapoteurId);
-	}
+//	@GetMapping("/by-tapoteur-id") // /api/culte/by-tapoteur-id?produitId=1
+//	@JsonView(Views.Culte.class)
+//	public List<Tapoteur> findAllByTapoteurId(@RequestParam int tapoteurId) {
+//		return this.daoCulte.findAllByTapoteurId(tapoteurId);
+//	}
+//	
+//	@GetMapping("/by-tapoteur-id/{tapoteurId}") // /api/culte/by-tapoteur-id/1
+//	@JsonView(Views.Culte.class)
+//	public List<Tapoteur> findAllByProduitId(@PathVariable int tapoteurId) {
+//		return this.daoCulte.findAllByTapoteurId(tapoteurId);
+//	}
 	
 
 }

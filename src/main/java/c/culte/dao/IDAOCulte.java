@@ -8,6 +8,6 @@ import c.culte.model.Culte;
 import c.culte.model.Tapoteur;
 
 public interface IDAOCulte extends JpaRepository<Culte, Integer> {
-	public List<Tapoteur> findAllByTapoteurId(int produitId);
+//	public List<Tapoteur> findAllByTapoteurId(int produitId);
 
 }
