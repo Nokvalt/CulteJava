@@ -2,9 +2,12 @@ package c.culte.request;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class EvenementRequest {
 
 	private String nom;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateEvent;
 	private String lieu;
 	private String nomActivite;

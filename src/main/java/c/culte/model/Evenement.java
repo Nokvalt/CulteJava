@@ -3,6 +3,7 @@ package c.culte.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.api.Views;
@@ -26,6 +27,7 @@ public class Evenement {
 	@Column(length = 150, nullable = false)
 	private String nom;
 	@Column(nullable = false)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateEvent;
 	@Column(length = 50, nullable = false)
 	private String lieu;
@@ -87,5 +89,6 @@ public class Evenement {
 	public void setActiviteEvent(Activite activiteEvent) {
 		this.activiteEvent = activiteEvent;
 	}
+
 
 }

@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import c.culte.dao.IDAOEvenement;
 import c.culte.exception.EvenementBadRequestException;
 import c.culte.exception.EvenementNotFoundException;
+import c.culte.model.Activite;
 import c.culte.model.Evenement;
 import c.culte.request.EvenementRequest;
 import jakarta.validation.Valid;
@@ -46,16 +47,22 @@ public class EvenementApiController {
 	@PostMapping
 	@JsonView(Views.Evenement.class)
 	public Evenement add(@Valid @RequestBody EvenementRequest evenementRequest, BindingResult result) {
-		if (result.hasErrors()) {
-			throw new EvenementBadRequestException();
-		}
-		
-		Evenement evenement = new Evenement();
-		
-		
-		BeanUtils.copyProperties(evenementRequest, evenement);
-		
-		return this.daoEvenement.save(evenement);
+	    if (result.hasErrors()) {
+	       // throw new EvenementBadRequestException();
+	    }
+	    
+	    Evenement evenement = new Evenement();
+	    BeanUtils.copyProperties(evenementRequest, evenement);
+	    
+	    // Récupérer l'activité correspondante au nomActivite fourni dans la requête
+	    try {
+	        Activite activite = Activite.valueOf(evenementRequest.getNomActivite());
+	        evenement.setActiviteEvent(activite);
+	    } catch (IllegalArgumentException e) {
+	        throw new EvenementBadRequestException();
+	    }
+	    
+	    return this.daoEvenement.save(evenement);
 	}
 	
 	
@@ -85,19 +92,6 @@ public class EvenementApiController {
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
