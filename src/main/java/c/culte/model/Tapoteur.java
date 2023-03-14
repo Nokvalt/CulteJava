@@ -34,6 +34,8 @@ public abstract class Tapoteur {
 	protected String login;
 	@Column(length=25, nullable=false)
 	protected String password;
+	@Column(nullable=true)
+	protected double sommeDon;
 	
 	@ManyToOne
 	@JoinColumn(name="culte", nullable=false)
@@ -134,6 +136,15 @@ public abstract class Tapoteur {
 
 	public void setCulte(Culte culte) {
 		this.culte = culte;
+	}
+
+	public double getSommeDon() {
+		return sommeDon;
+	}
+
+
+	public void setSommeDon(double sommeDon) {
+		this.sommeDon = sommeDon;
 	}
 
 
