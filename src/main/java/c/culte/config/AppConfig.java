@@ -7,4 +7,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("c.culte")
 public class AppConfig {
 	
-}
+} 
