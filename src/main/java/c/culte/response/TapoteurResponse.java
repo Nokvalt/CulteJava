@@ -6,6 +6,8 @@ public class TapoteurResponse {
 	protected String prenom;
 	protected String login;
 	protected double sommeDon;
+	protected Class<? extends TapoteurResponse> rang = this.getClass();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -36,6 +38,14 @@ public class TapoteurResponse {
 	public void setSommeDon(double sommeDon) {
 		this.sommeDon = sommeDon;
 	}
+	public Class<? extends TapoteurResponse> getRang() {
+		return rang;
+	}
+	public void setRang(Class<? extends TapoteurResponse> rang) {
+		this.rang = rang;
+	}
+	
+	
 	
 	
 }
