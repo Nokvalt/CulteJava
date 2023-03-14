@@ -48,9 +48,26 @@ public class TapoteurApiController {
 	// --------- FIND ALL --------- //
 	//FIND ALL TAPOTEUR
 	@GetMapping
-	@JsonView(Views.Tapoteur.class)
-	public List<Tapoteur> findAll(){
-		return daoT.findAll();
+	public List<TapoteurResponse> findAll(){
+		List<TapoteurResponse> responses = new ArrayList();
+		List <Tapoteur> tapoteurs = daoT.findAll();
+		TapoteurResponse response;
+		
+		for (Tapoteur t : tapoteurs) {
+			if (t instanceof Fidele) {
+				response = new FideleResponse();
+			}else if (t instanceof Compileur) {
+				response = new CompileurResponse();
+			}else if(t instanceof Indenteur) {
+				response = new IndenteurResponse();
+			}else{
+				response = new GrandDevResponse();
+			}
+			
+			BeanUtils.copyProperties(t, response);
+			responses.add(response);
+		}
+		return responses;
 	}
 	
 	//FIND ALL FIDELES
@@ -125,17 +142,15 @@ public class TapoteurApiController {
 		
 		if (tapoteur instanceof Fidele) {
 			response = new FideleResponse();
-			BeanUtils.copyProperties(tapoteur, response);
 		}else if (tapoteur instanceof Compileur) {
 			response = new CompileurResponse();
-			BeanUtils.copyProperties(tapoteur, response);
 		}else if(tapoteur instanceof Indenteur) {
 			response = new IndenteurResponse();
-			BeanUtils.copyProperties(tapoteur, response);
 		}else{
 			response = new GrandDevResponse();
-			BeanUtils.copyProperties(tapoteur, response);
 		}
+		
+		BeanUtils.copyProperties(tapoteur, response);
 						
 		return response;
 	}
