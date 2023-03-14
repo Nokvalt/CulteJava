@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import c.culte.dao.IDAOCulte;
 import c.culte.dao.IDAOTapoteur;
 import c.culte.exception.CulteNotFoundException;
 import c.culte.exception.TapoteurBadRequestException;
