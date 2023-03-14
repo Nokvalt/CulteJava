@@ -7,6 +7,8 @@ public interface Views {
 	
 	public static interface Evenement extends Common {}
 	
+	public static interface Don extends Common {}
+	
 	public static interface Tapoteur extends Common {}
 	public static interface Indenteur extends Tapoteur {}
 	public static interface Compileur extends Tapoteur {}

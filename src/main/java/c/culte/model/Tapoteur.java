@@ -1,6 +1,7 @@
 package c.culte.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -14,8 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -46,6 +46,9 @@ public abstract class Tapoteur {
 	@JsonView(Views.Tapoteur.class)
 	@Column(nullable=false)
 	protected double sommeDon;
+	@OneToMany
+	@Column(nullable=false)
+	protected List<Don> dons;
 	
 
 	
