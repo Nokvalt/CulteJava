@@ -2,6 +2,9 @@ package c.culte.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import c.culte.api.Views;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Embedded;
@@ -21,19 +24,26 @@ public abstract class Tapoteur {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	protected Integer id;
+	@JsonView(Views.Tapoteur.class)
 	@Column(length=50, nullable=false)
 	protected String nom;
+	@JsonView(Views.Tapoteur.class)
 	@Column(length=50, nullable=false)
 	protected String prenom;
 	@Embedded
 	protected Adresse adresse;
 	@Column(nullable=false)
+	@JsonView(Views.Tapoteur.class)
 	protected LocalDate dateAdhesion;
 	@Column(length=25, nullable=false)
+	@JsonView(Views.Tapoteur.class)
 	protected String login;
+	@JsonView(Views.Tapoteur.class)
 	@Column(length=25, nullable=false)
 	protected String password;
+	@JsonView(Views.Tapoteur.class)
 	@Column(nullable=false)
 	protected double sommeDon;
 	

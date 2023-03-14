@@ -2,6 +2,9 @@ package c.culte.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import c.culte.api.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -10,7 +13,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 @DiscriminatorValue("indenteur")
 public class Indenteur extends Tapoteur {
-	
+	@JsonView(Views.Indenteur.class)
 	@OneToOne(mappedBy="indenteur", cascade = CascadeType.ALL)
 	private Demande demande;
 
