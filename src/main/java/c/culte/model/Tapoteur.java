@@ -47,10 +47,6 @@ public abstract class Tapoteur {
 	@Column(nullable=false)
 	protected double sommeDon;
 	
-	@ManyToOne
-	@JoinColumn(name="culte", nullable=false)
-	protected Culte culte;
-	
 
 	
 	public Tapoteur() {}
@@ -138,16 +134,6 @@ public abstract class Tapoteur {
 		this.password = password;
 	}
 
-
-	public Culte getCulte() {
-		return culte;
-	}
-
-
-	public void setCulte(Culte culte) {
-		this.culte = culte;
-	}
-
 	public double getSommeDon() {
 		return sommeDon;
 	}
@@ -161,7 +147,7 @@ public abstract class Tapoteur {
 	@Override
 	public String toString() {
 		return "Tapoteur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", dateAdhesion="
-				+ dateAdhesion + ", login=" + login + ", password=" + password + ", culte=" + culte + "]";
+				+ dateAdhesion + ", login=" + login + ", password=" + password + "]";
 	}
 	
 	

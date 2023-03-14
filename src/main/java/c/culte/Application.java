@@ -57,14 +57,13 @@ public class Application {
 	public static void main(String[] args) {
 	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
-	IDAOCulte IDAOc = context.getBean(IDAOCulte.class);
 	IDAODemande IDAOd = context.getBean(IDAODemande.class);
 	IDAOEvenement IDAOe = context.getBean(IDAOEvenement.class);
 	IDAOTapoteur IDAOt = context.getBean(IDAOTapoteur.class);
 	
 	
 
-		System.out.println("test");
+	System.out.println("test");
 
 
 

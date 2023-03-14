@@ -36,10 +36,6 @@ public class Evenement {
 	
 	@ManyToMany(mappedBy="inscriptions")
 	private List<Fidele> inscrits;
-	
-	@ManyToOne
-	@JoinColumn(name = "culte", nullable = false)
-	private Culte culte;
 
 	public Evenement() {
 	}
@@ -90,14 +86,6 @@ public class Evenement {
 
 	public void setActiviteEvent(Activite activiteEvent) {
 		this.activiteEvent = activiteEvent;
-	}
-
-	public Culte getCulte() {
-		return culte;
-	}
-
-	public void setCulte(Culte culte) {
-		this.culte = culte;
 	}
 
 }
