@@ -16,7 +16,6 @@ import jakarta.persistence.ManyToMany;
 @DiscriminatorValue("fidele")
 public class Fidele extends Tapoteur {
 	
-	@JsonView(Views.Fidele.class)
 	@ManyToMany
 	@JoinTable(name="inscriptions", joinColumns = @JoinColumn(name = "fideleId"), inverseJoinColumns = @JoinColumn(name = "evenementId"))
 	private List<Evenement> inscriptions;

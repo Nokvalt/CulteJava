@@ -11,5 +11,10 @@ public class GrandDevResponse extends TapoteurResponse {
 		this.couleurPull = couleurPull;
 	}
 	
+	@Override
+	public String getRang() {
+		return "Grand Dev";
+	}
+	
 	
 }

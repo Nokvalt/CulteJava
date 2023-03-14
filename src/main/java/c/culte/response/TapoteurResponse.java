@@ -1,12 +1,11 @@
 package c.culte.response;
 
-public class TapoteurResponse {
+public abstract class TapoteurResponse {
 	protected Integer id;
 	protected String nom;
 	protected String prenom;
 	protected String login;
 	protected double sommeDon;
-	protected Class<? extends TapoteurResponse> rang = this.getClass();
 	
 	public Integer getId() {
 		return id;
@@ -38,14 +37,7 @@ public class TapoteurResponse {
 	public void setSommeDon(double sommeDon) {
 		this.sommeDon = sommeDon;
 	}
-	public Class<? extends TapoteurResponse> getRang() {
-		return rang;
-	}
-	public void setRang(Class<? extends TapoteurResponse> rang) {
-		this.rang = rang;
-	}
 	
-	
-	
+	public abstract String getRang();
 	
 }

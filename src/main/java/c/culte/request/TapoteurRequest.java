@@ -17,7 +17,6 @@ public class TapoteurRequest {
 	protected String login;
 	protected String password;
 	protected double sommeDon;
-	protected Integer culteId;
 	
 	public String getNom() {
 		return nom;
@@ -84,12 +83,6 @@ public class TapoteurRequest {
 	}
 	public void setSommeDon(double sommeDon) {
 		this.sommeDon = sommeDon;
-	}
-	public Integer getCulteId() {
-		return culteId;
-	}
-	public void setCulteId(Integer culteId) {
-		this.culteId = culteId;
 	}
 	
 	

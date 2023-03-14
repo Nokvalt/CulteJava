@@ -26,6 +26,11 @@ public class IndenteurResponse extends TapoteurResponse{
 		this.demandeStatut = demandeStatut;
 	}
 	
+	@Override
+	public String getRang() {
+		return "Indenteur";
+	}
+	
 	
 	
 }

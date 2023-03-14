@@ -1,5 +1,8 @@
 package c.culte.exception;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class TapoteurNotFoundException {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class TapoteurNotFoundException extends RuntimeException  {
 
 }

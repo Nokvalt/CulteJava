@@ -5,6 +5,12 @@ import java.util.List;
 import c.culte.model.Evenement;
 
 public class FideleResponse extends TapoteurResponse{
+
+	@Override
+	public String getRang() {
+		return "Fidele";
+	}
+	
 	/*private List<EvenementResponse> inscriptions;
 
 	public List<EvenementResponse> getInscriptions() {
