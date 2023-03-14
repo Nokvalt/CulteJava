@@ -35,6 +35,7 @@ import c.culte.response.CompileurResponse;
 import c.culte.response.FideleResponse;
 import c.culte.response.GrandDevResponse;
 import c.culte.response.IndenteurResponse;
+import c.culte.response.TapoteurResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -116,15 +117,28 @@ public class TapoteurApiController {
 		return responses;
 	}
 	
-	
-	/*
-	@JsonView(Views.Fidele.class)
-	public List<Fidele> findAllFidele(){
-		return daoT.findAllFidele();
-	}*/
-	
 	// --------- FIND BY ID --------- //
-	
+	@GetMapping("/{id}")
+	public TapoteurResponse findById(@PathVariable int id){
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		TapoteurResponse response;
+		
+		if (tapoteur instanceof Fidele) {
+			response = new FideleResponse();
+			BeanUtils.copyProperties(tapoteur, response);
+		}else if (tapoteur instanceof Compileur) {
+			response = new CompileurResponse();
+			BeanUtils.copyProperties(tapoteur, response);
+		}else if(tapoteur instanceof Indenteur) {
+			response = new IndenteurResponse();
+			BeanUtils.copyProperties(tapoteur, response);
+		}else{
+			response = new GrandDevResponse();
+			BeanUtils.copyProperties(tapoteur, response);
+		}
+						
+		return response;
+	}
 	
 	// --------- ADD --------- //
 	//ADD FIDELE
