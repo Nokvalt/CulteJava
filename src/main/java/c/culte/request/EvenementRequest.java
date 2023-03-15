@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class EvenementRequest {
 
 	private String nom;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateEvent;
 	private String lieu;
 	private String nomActivite;
