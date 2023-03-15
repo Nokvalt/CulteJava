@@ -1,5 +1,6 @@
 package c.culte.api;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import c.culte.dao.IDAOBannis;
 import c.culte.dao.IDAOEvenement;
 import c.culte.dao.IDAOTapoteur;
+import c.culte.exception.BannisBadRequestException;
 import c.culte.exception.EvenementNotFoundException;
 import c.culte.exception.TapoteurBadRequestException;
 import c.culte.exception.TapoteurNotFoundException;
 import c.culte.model.Adresse;
+import c.culte.model.Bannis;
 import c.culte.model.Compileur;
 import c.culte.model.Evenement;
 import c.culte.model.Fidele;
 import c.culte.model.GrandDev;
 import c.culte.model.Indenteur;
 import c.culte.model.Tapoteur;
+import c.culte.request.BannissementRequest;
 import c.culte.request.CompileurRequest;
 import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
@@ -52,6 +57,9 @@ public class TapoteurApiController {
 	
 	@Autowired
 	IDAOEvenement daoE;
+	
+	@Autowired
+	IDAOBannis daoB;
 	
 	// --------- FIND ALL --------- //
 	//FIND ALL TAPOTEUR
@@ -478,15 +486,26 @@ public class TapoteurApiController {
 	}
 	
 	//Bannissement
-	@DeleteMapping("/bannissement/{id}") //potentiellement faire une table pour les BANNIS
-	@JsonView(Views.Tapoteur.class)
-	public boolean bannissement(@PathVariable int id) {
-		try {
-			this.daoT.deleteById(id);
-			return true;
-		}catch (Exception e) {
-			return false;
+	@PostMapping("/bannissement/{id}")
+	@JsonView(Views.Bannis.class)
+	public Bannis bannissement(@PathVariable int id, @RequestBody @Valid BannissementRequest bannissementRequest, BindingResult result) {
+		if (result.hasErrors()) {
+			throw new BannisBadRequestException();
 		}
+		
+		Bannis bannis = new Bannis();
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		
+		bannis.setDateBannissement(bannissementRequest.getDateBannissement());
+		bannis.setInfoBanquaires(bannissementRequest.getInfoBanquaires());
+		bannis.setMotif(bannissementRequest.getMotif());
+		bannis.setNom(tapoteur.getNom());
+		bannis.setPrenom(tapoteur.getPrenom());
+		bannis.setTapoteur(tapoteur);
+		
+		daoB.save(bannis);
+		
+		return bannis;
 	}
 	
 	//Nouveau GrandDev

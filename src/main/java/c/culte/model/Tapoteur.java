@@ -16,7 +16,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -54,7 +56,8 @@ public abstract class Tapoteur {
 	@Column(nullable=false)
 	protected List<Don> dons;
 	
-
+	@OneToOne(mappedBy="tapoteur")
+	private Bannis bannis;
 	
 	public Tapoteur() {}
 

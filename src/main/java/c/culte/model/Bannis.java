@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Bannis {
@@ -35,6 +37,10 @@ public class Bannis {
 	@JsonView(Views.Bannis.class)
 	@Column(length=150, nullable=false)
 	private String infoBanquaires;
+	
+	@OneToOne
+	@JoinColumn(nullable=false)
+	private Tapoteur tapoteur;
 	
 	public Bannis() {}
 	
@@ -88,6 +94,16 @@ public class Bannis {
 	public void setInfoBanquaires(String infoBanquaires) {
 		this.infoBanquaires = infoBanquaires;
 	}
+
+	public Tapoteur getTapoteur() {
+		return tapoteur;
+	}
+
+	public void setTapoteur(Tapoteur tapoteur) {
+		this.tapoteur = tapoteur;
+	}
+	
+	
 	
 	
 	
