@@ -20,15 +20,9 @@ import c.culte.dao.IDAODemande;
 import c.culte.dao.IDAOTapoteur;
 import c.culte.exception.DemandeBadRequestException;
 import c.culte.exception.DemandeNotFoundException;
-import c.culte.model.Adresse;
-import c.culte.model.Compileur;
 import c.culte.model.Demande;
 import c.culte.model.Indenteur;
-import c.culte.model.Tapoteur;
 import c.culte.request.DemandeRequest;
-import c.culte.request.TapoteurRequest;
-import fr.formation.model.Commentaire;
-import fr.formation.model.Produit;
 import jakarta.validation.Valid;
 
 @RestController
