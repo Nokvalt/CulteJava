@@ -14,7 +14,7 @@ import jakarta.persistence.OneToOne;
 @DiscriminatorValue("indenteur")
 public class Indenteur extends Tapoteur {
 	@JsonView(Views.Indenteur.class)
-	@OneToOne(mappedBy="indenteur", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy="indenteur")
 	private Demande demande;
 
 	public Indenteur() {}

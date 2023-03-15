@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.dao.IDAODemande;
+import c.culte.dao.IDAOTapoteur;
 import c.culte.exception.DemandeBadRequestException;
 import c.culte.exception.DemandeNotFoundException;
 import c.culte.model.Demande;
+import c.culte.model.Indenteur;
 import c.culte.request.DemandeRequest;
-import c.culte.request.TapoteurRequest;
-import fr.formation.api.Views;
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,6 +31,8 @@ public class DemandeApiController {
 	
 	@Autowired
 	private IDAODemande daoDemande;
+	@Autowired
+	private IDAOTapoteur daoTapoteur;
 		
 	//liste des demandes
 	@GetMapping
@@ -54,16 +56,18 @@ public class DemandeApiController {
 			throw new DemandeBadRequestException();
 		}
 		
+	
 		Demande demande = new Demande();
-		
+		Indenteur indenteur = (Indenteur) daoTapoteur.findById(demandeRequest.getIndenteurid()).orElseThrow(DemandeNotFoundException::new);
+		// Todo regaerder l'indenteur
 		BeanUtils.copyProperties(demandeRequest, demande);
 		
-		demande.setId(TapoteurRequest.getid);
-		
-		// TODO chercher l'indenteur avec son id puis l'affecter à la demande
+		demande.setIndenteur(indenteur);
 		
 		return this.daoDemande.save(demande);
+		// TODO chercher l'indenteur avec son id puis l'affecter à la demande
 	}
+	
 	
 	//Modifier une demande
 	@PutMapping("/{id}")
