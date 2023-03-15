@@ -1,7 +1,12 @@
 package c.culte.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import c.culte.api.Views;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +23,9 @@ public class Demande {
 	private double montant;
 	@Column(nullable=false)
 	private String descriptif;
-	@Column(nullable=false, name = "statut", columnDefinition = "ENUM('enAttente', 'refusé')")
+	@Column(nullable=false, columnDefinition = "ENUM('enAttente', 'refusé')")
+	@Enumerated(EnumType.STRING)
+	@JsonView(Views.Evenement.class)
 	private Statut statut;
 	@OneToOne
 	@JoinColumn(name="indenteur", nullable=false)
