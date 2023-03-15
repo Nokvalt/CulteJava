@@ -83,6 +83,19 @@ public class DemandeApiController {
 		return this.daoDemande.save(demande);
 	}
 	
+	/*@PutMapping("/statut/{id}")
+	@JsonView(Views.Demande.class)
+	public Demande editdemandestatut(@PathVariable int id, @Valid @RequestBody DemandeRequest demandeRequest, BindingResult result) {
+		if (result.hasErrors()) {
+			throw new DemandeBadRequestException();
+		}
+		
+		Demande demande = this.daoDemande.findById(id).orElseThrow(DemandeNotFoundException::new);
+		BeanUtils.copyProperties(demandeRequest, demande);
+		
+		return this.daoDemande.save(demande);
+	}*/
+	
 	//Effacer une demande
 	@DeleteMapping("/{id}")
 	@JsonView(Views.Demande.class)
@@ -98,7 +111,7 @@ public class DemandeApiController {
 		}
 	}
 	
-	//changer le statut de la demande 
+	
 	
 	
 }
