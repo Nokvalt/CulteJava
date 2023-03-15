@@ -44,6 +44,13 @@ public class EvenementApiController {
 		return this.daoEvenement.findById(id).orElseThrow(EvenementNotFoundException::new);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	@PostMapping
 	@JsonView(Views.Evenement.class)
 	public Evenement add(@Valid @RequestBody EvenementRequest evenementRequest, BindingResult result) {
@@ -76,6 +83,13 @@ public class EvenementApiController {
 		Evenement evenement = this.daoEvenement.findById(id).orElseThrow(EvenementNotFoundException::new);
 		
 		BeanUtils.copyProperties(evenementRequest, evenement);
+		
+		 try {
+		        Activite activite = Activite.valueOf(evenementRequest.getNomActivite());
+		        evenement.setActiviteEvent(activite);
+		    } catch (IllegalArgumentException e) {
+		        throw new EvenementBadRequestException();
+		    }
 		
 		return this.daoEvenement.save(evenement);
 	}

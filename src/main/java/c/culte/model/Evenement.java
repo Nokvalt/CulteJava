@@ -25,15 +25,19 @@ public class Evenement {
 	@JsonView(Views.Evenement.class)
 	private Integer id;
 	@Column(length = 150, nullable = false)
+	@JsonView(Views.Evenement.class)
 	private String nom;
 	@Column(nullable = false)
 	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonView(Views.Evenement.class)
 	private LocalDate dateEvent;
 	@Column(length = 50, nullable = false)
+	@JsonView(Views.Evenement.class)
 	private String lieu;
 
 	@Column(name = "activite", columnDefinition = "ENUM('feteCreation', 'naissanceProphete', 'fetePopups', 'rassemblement', 'pelerinnage', 'promotion')")
 	@Enumerated(EnumType.STRING)
+	@JsonView(Views.Evenement.class)
 	private Activite activiteEvent;
 	
 	@ManyToMany(mappedBy="inscriptions")
