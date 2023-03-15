@@ -9,6 +9,7 @@ public class EvenementResponse {
 	private LocalDate dateEvent;
 	private String lieu;
 	private String nomActivite;
+	
 	public int getId() {
 		return id;
 	}

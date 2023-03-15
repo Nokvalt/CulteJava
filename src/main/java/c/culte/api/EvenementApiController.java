@@ -52,41 +52,6 @@ public class EvenementApiController {
 		return this.daoEvenement.findById(id).orElseThrow(EvenementNotFoundException::new);
 	}
 	
-	@GetMapping("/by-tapoteur-id/{tapoteurId}")
-	@JsonView(Views.Evenement.class)
-	public List<Evenement> findAllByTapoteurId(@PathVariable int tapoteurId) {
-		
-		
-		
-		return this.daoEvenement.findAllByInscritsId(tapoteurId);
-		
-		
-	}
-	
-	@PutMapping("/inscription/{tapoteurId}")
-	@JsonView(Views.Evenement.class)
-	public boolean inscription (@PathVariable int tapoteurId, @RequestBody @Valid InscriptionRequest inscriptionRequest, BindingResult result )
-	{
-
-		//Attention vérifier que c'est bien un fidele
-		Fidele fidele = (Fidele) daoTapoteur.findByIdWithInscriptions(tapoteurId).orElseThrow(TapoteurNotFoundException::new);
-		
-		Evenement evenement = daoEvenement.findByIdWithInscrits(inscriptionRequest.getEvenementId()).orElseThrow(EvenementNotFoundException::new);
-		
-		evenement.getInscrits().add(fidele);
-		
-		fidele.getInscriptions().add(evenement);
-		
-		daoTapoteur.save(fidele);
-		daoEvenement.save(evenement);
-		
-		return true;
-		
-		
-	}
-	
-	
-	
 	
 	@PostMapping
 	@JsonView(Views.Evenement.class)

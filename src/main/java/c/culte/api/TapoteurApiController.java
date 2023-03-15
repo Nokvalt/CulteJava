@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import c.culte.dao.IDAOEvenement;
 import c.culte.dao.IDAOTapoteur;
+import c.culte.exception.EvenementNotFoundException;
 import c.culte.exception.TapoteurBadRequestException;
 import c.culte.exception.TapoteurNotFoundException;
 import c.culte.model.Adresse;
 import c.culte.model.Compileur;
+import c.culte.model.Evenement;
 import c.culte.model.Fidele;
 import c.culte.model.GrandDev;
 import c.culte.model.Indenteur;
@@ -31,6 +34,8 @@ import c.culte.request.CompileurRequest;
 import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
+import c.culte.request.InscriptionRequest;
+import c.culte.request.UserEditRequest;
 import c.culte.response.CompileurResponse;
 import c.culte.response.FideleResponse;
 import c.culte.response.GrandDevResponse;
@@ -44,6 +49,9 @@ import jakarta.validation.Valid;
 public class TapoteurApiController {
 	@Autowired
 	IDAOTapoteur daoT;
+	
+	@Autowired
+	IDAOEvenement daoE;
 	
 	// --------- FIND ALL --------- //
 	//FIND ALL TAPOTEUR
@@ -355,5 +363,74 @@ public class TapoteurApiController {
 		}catch (Exception e) {
 			return false;
 		}
+	}
+	
+	// --------- INSCRIPTION --------- //
+	@PutMapping("/inscriptionEvenement/{tapoteurId}")
+	@JsonView(Views.Evenement.class)
+	public boolean inscription (@PathVariable int tapoteurId, @RequestBody @Valid InscriptionRequest inscriptionRequest, BindingResult result)
+	{
+		//Attention vérifier que c'est bien un fidele
+		Tapoteur tapoteur = daoT.findByIdWithInscriptions(tapoteurId).orElseThrow(TapoteurNotFoundException::new);
+		Evenement evenement = daoE.findByIdWithInscrits(inscriptionRequest.getEvenementId()).orElseThrow(EvenementNotFoundException::new);
+		
+		if (tapoteur instanceof Fidele fidele) {
+			evenement.getInscrits().add(fidele);
+			fidele.getInscriptions().add(evenement);
+		
+			daoT.save(fidele);
+			daoE.save(evenement);
+			return true;
+		}
+		
+		throw new TapoteurBadRequestException();
+	}
+	
+	@GetMapping("/mesInscriptions/{tapoteurId}")
+	@JsonView(Views.Evenement.class)
+	public List<Evenement> findAllByTapoteurId(@PathVariable int tapoteurId) {
+		return this.daoE.findAllByInscritsId(tapoteurId);
+	}
+	
+	
+	// --------- MODIFICATION PROFIL --------- //
+	//EDIT FIDELE
+	@PutMapping("/editerUtilisateur/{id}")
+	@JsonView(Views.Fidele.class)
+	public Tapoteur editUser(@PathVariable int id, @RequestBody @Valid UserEditRequest userRequest, BindingResult result) {
+		if (result.hasErrors()) {
+			throw new TapoteurBadRequestException();
+		}
+		
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new); 
+		
+		switch (userRequest.getAttribut()) {
+		
+		case "login":
+			tapoteur.setLogin(userRequest.getValue());
+			break;
+		
+		case "password":
+			tapoteur.setPassword(userRequest.getValue());
+			break;	
+			
+		case "nom":
+			tapoteur.setNom(userRequest.getValue());
+			break;
+		
+		case "prenom":
+			tapoteur.setPrenom(userRequest.getValue());
+			break;
+		
+		case "imageProfil":
+			tapoteur.setImageProfil(userRequest.getValue());
+			break;
+			
+		case "adresse":
+			tapoteur.setAdresse(userRequest.getAdresse());
+			break;
+		}
+		
+		return daoT.save(tapoteur);
 	}
 }
