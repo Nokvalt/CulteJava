@@ -2,6 +2,7 @@ package c.culte.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.api.Views;
@@ -15,17 +16,23 @@ import jakarta.persistence.Id;
 public class Bannis {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(Views.Bannis.class)
+	@JsonView(Views.Common.class)
 	protected Integer id;
 	
+	@JsonView(Views.Bannis.class)
 	@Column(length=50, nullable=false)
 	private String nom;
+	@JsonView(Views.Bannis.class)
 	@Column(length=50, nullable=false)
 	private String prenom;
+	@JsonView(Views.Bannis.class)
 	@Column(nullable=false)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateBannissement;
+	@JsonView(Views.Bannis.class)
 	@Column(length=250, nullable=false)
 	private String motif;
+	@JsonView(Views.Bannis.class)
 	@Column(length=150, nullable=false)
 	private String infoBanquaires;
 	
@@ -39,6 +46,16 @@ public class Bannis {
 		this.infoBanquaires = infoBanquaires;
 	}
 	
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getNom() {
 		return nom;
 	}
