@@ -1,5 +1,6 @@
 package c.culte.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,7 @@ import c.culte.model.Fidele;
 import c.culte.model.Tapoteur;
 import c.culte.request.EvenementRequest;
 import c.culte.request.InscriptionRequest;
+import c.culte.response.EvenementResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -36,20 +38,31 @@ public class EvenementApiController {
 	@Autowired
 	private IDAOEvenement daoEvenement;
 	
-	@Autowired
-	private IDAOTapoteur daoTapoteur;
-	
 	@GetMapping
-	@JsonView(Views.Evenement.class)
-	public List<Evenement> findAll()
-	{
-		return this.daoEvenement.findAll();
+	public List<EvenementResponse> findAll()
+	{	
+		List<EvenementResponse> responses = new ArrayList();
+		List<Evenement> evenements = daoEvenement.findAll();
+		
+		for (Evenement e : evenements) {
+			EvenementResponse response = new EvenementResponse();
+			BeanUtils.copyProperties(e, response);
+			response.setNomActivite(e.getActiviteEvent().name());
+			responses.add(response);
+		}
+		
+		return responses;
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(Views.Evenement.class)
-	public Evenement findById(@PathVariable int id) {
-		return this.daoEvenement.findById(id).orElseThrow(EvenementNotFoundException::new);
+	public EvenementResponse findById(@PathVariable int id) {
+		Evenement evenement = daoEvenement.findById(id).orElseThrow(EvenementNotFoundException::new);
+		EvenementResponse response = new EvenementResponse();
+		
+		BeanUtils.copyProperties(evenement, response);
+		response.setNomActivite(evenement.getActiviteEvent().name());
+		
+		return response;
 	}
 	
 	

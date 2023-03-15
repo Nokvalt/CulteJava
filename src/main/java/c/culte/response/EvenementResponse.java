@@ -2,10 +2,13 @@ package c.culte.response;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class EvenementResponse {
 
 	private int id;
 	private String nom;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateEvent;
 	private String lieu;
 	private String nomActivite;
