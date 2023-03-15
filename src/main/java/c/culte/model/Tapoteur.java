@@ -50,7 +50,6 @@ public abstract class Tapoteur {
 	protected double sommeDon;
 	@Column(nullable=true)
 	protected String imageProfil;
-	@OneToMany
 	@OneToMany(mappedBy="tapoteur")
 	@Column(nullable=false)
 	protected List<Don> dons;
