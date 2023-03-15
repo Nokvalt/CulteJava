@@ -1,5 +1,8 @@
 package c.culte.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.api.Views;
@@ -29,6 +32,7 @@ public class Demande {
 	private Statut statut;
 	@OneToOne
 	@JoinColumn(name="indenteur", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Indenteur indenteur;
 	
 	public Demande() {}
