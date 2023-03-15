@@ -18,7 +18,7 @@ public class Demande {
 	private double montant;
 	@Column(nullable=false)
 	private String descriptif;
-	@Column(nullable=false)
+	@Column(nullable=false, name = "statut", columnDefinition = "ENUM('enAttente', 'refusé')")
 	private Statut statut;
 	@OneToOne
 	@JoinColumn(name="indenteur", nullable=false)

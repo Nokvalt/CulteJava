@@ -1,12 +1,20 @@
 package c.culte.request;
 
+import c.culte.model.Statut;
+
 public class DemandeRequest {
 
 		private String descriptif;
 		private Integer indenteurid ; 
 		private double montant;
-		private String statut = "en-cours";
+		private Statut statut = Statut.enAttente;
 		
+		public Statut getStatut() {
+			return statut;
+		}
+		public void setStatut(Statut statut) {
+			this.statut = statut;
+		}
 		public String getDescriptif() {
 			return descriptif;
 		}
@@ -26,12 +34,7 @@ public class DemandeRequest {
 		public void setMontant(double montant) {
 			this.montant = montant;
 		}
-		public String getStatut() {
-			return statut;
-		}
-		public void setStatut(String statut) {
-			this.statut = statut;
-		}
+
 
 
 		// TODO indenteur Id
