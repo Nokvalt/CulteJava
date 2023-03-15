@@ -2,25 +2,24 @@ package c.culte.response;
 
 import java.time.LocalDate;
 
-import c.culte.model.Tapoteur;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DonResponse {
 	
 	private Integer id;
-	private Tapoteur tapoteur;
 	private double montant;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateDon;
+	private Integer tapoteurId;
+	private String tapoteurNom;
+	private String tapoteurPrenom;
+	
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Tapoteur getTapoteur() {
-		return tapoteur;
-	}
-	public void setTapoteur(Tapoteur tapoteur) {
-		this.tapoteur = tapoteur;
 	}
 	public double getMontant() {
 		return montant;
@@ -34,6 +33,25 @@ public class DonResponse {
 	public void setDateDon(LocalDate dateDon) {
 		this.dateDon = dateDon;
 	}
+	public Integer getTapoteurId() {
+		return tapoteurId;
+	}
+	public void setTapoteurId(Integer tapoteurId) {
+		this.tapoteurId = tapoteurId;
+	}
+	public String getTapoteurNom() {
+		return tapoteurNom;
+	}
+	public void setTapoteurNom(String tapoteurNom) {
+		this.tapoteurNom = tapoteurNom;
+	}
+	public String getTapoteurPrenom() {
+		return tapoteurPrenom;
+	}
+	public void setTapoteurPrenom(String tapoteurPrenom) {
+		this.tapoteurPrenom = tapoteurPrenom;
+	}
+	
 	
 	
 

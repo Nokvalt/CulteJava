@@ -1,5 +1,6 @@
 package c.culte.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -25,6 +26,7 @@ import c.culte.exception.TapoteurNotFoundException;
 import c.culte.model.Don;
 import c.culte.model.Tapoteur;
 import c.culte.request.DonRequest;
+import c.culte.response.DonResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -38,9 +40,34 @@ public class DonApiController {
 	IDAOTapoteur daoTapoteur;
 	
 	@GetMapping
-	@JsonView(Views.Don.class)
-	public List<Don> findAllDon(){
-		return daoDon.findAllDon();
+	public List<DonResponse> findAllDon(){
+		List <Don> dons = daoDon.findAllDon();
+		List <DonResponse> responses = new ArrayList();
+		
+		for (Don d : dons) {
+			DonResponse response = new DonResponse();
+			BeanUtils.copyProperties(d, response);
+			response.setTapoteurId(d.getTapoteur().getId());
+			response.setTapoteurNom(d.getTapoteur().getNom());
+			response.setTapoteurPrenom(d.getTapoteur().getPrenom());
+			
+			responses.add(response);
+		}
+		
+		return responses;
+	}
+	
+	@GetMapping("/{id}")
+	public DonResponse findById(@PathVariable int id) {
+		Don don = daoDon.findById(id).orElseThrow(DonNotFoundException::new);
+		DonResponse response = new DonResponse();
+		
+		BeanUtils.copyProperties(don, response);
+		response.setTapoteurId(don.getTapoteur().getId());
+		response.setTapoteurNom(don.getTapoteur().getNom());
+		response.setTapoteurPrenom(don.getTapoteur().getPrenom());
+		
+		return response;
 	}
 	
 	@PostMapping("/addDon")
