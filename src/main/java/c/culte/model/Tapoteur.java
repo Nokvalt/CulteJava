@@ -48,6 +48,8 @@ public abstract class Tapoteur {
 	@JsonView(Views.Tapoteur.class)
 	@Column(nullable=false)
 	protected double sommeDon;
+	@Column(nullable=true)
+	protected String imageProfil;
 	@OneToMany
 	@Column(nullable=false)
 	protected List<Don> dons;
@@ -146,6 +148,26 @@ public abstract class Tapoteur {
 
 	public void setSommeDon(double sommeDon) {
 		this.sommeDon = sommeDon;
+	}
+
+
+	public String getImageProfil() {
+		return imageProfil;
+	}
+
+
+	public void setImageProfil(String imageProfil) {
+		this.imageProfil = imageProfil;
+	}
+
+
+	public List<Don> getDons() {
+		return dons;
+	}
+
+
+	public void setDons(List<Don> dons) {
+		this.dons = dons;
 	}
 
 
