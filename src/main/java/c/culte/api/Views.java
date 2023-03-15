@@ -14,4 +14,6 @@ public interface Views {
 	public static interface Compileur extends Tapoteur {}
 	public static interface Fidele extends Tapoteur {}
 	public static interface GrandDev extends Tapoteur {}
+	
+	public static interface Bannis extends Common {}
 }
