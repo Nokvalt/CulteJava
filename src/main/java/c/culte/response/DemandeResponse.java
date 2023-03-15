@@ -6,6 +6,7 @@ public class DemandeResponse {
 	
 	private Integer id;
 	private String nom;
+	private String prenom;
 	private double montant;
 	private String descriptif;
 	private Statut statut;
@@ -25,6 +26,14 @@ public class DemandeResponse {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	public double getMontant() {
