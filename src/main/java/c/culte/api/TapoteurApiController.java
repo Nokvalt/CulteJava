@@ -65,7 +65,7 @@ public class TapoteurApiController {
 	//FIND ALL TAPOTEUR
 	@GetMapping
 	public List<TapoteurResponse> findAll(){
-		List<TapoteurResponse> responses = new ArrayList();
+		List<TapoteurResponse> responses = new ArrayList<>();
 		List <Tapoteur> tapoteurs = daoT.findAll();
 		TapoteurResponse response;
 		
@@ -90,7 +90,7 @@ public class TapoteurApiController {
 	@GetMapping("/fideles")
 	public List<FideleResponse> findAllFidele(){
 		List<Fidele> fideles = daoT.findAllFidele();
-		List<FideleResponse> responses = new ArrayList();
+		List<FideleResponse> responses = new ArrayList<>();
 		
 		for (Fidele f : fideles) {
 			FideleResponse resp = new FideleResponse();
@@ -106,7 +106,7 @@ public class TapoteurApiController {
 		@GetMapping("/compileurs")
 		public List<CompileurResponse> findAllCompileur(){
 			List<Compileur> compileurs = daoT.findAllCompileur();
-			List<CompileurResponse> responses = new ArrayList();
+			List<CompileurResponse> responses = new ArrayList<>();
 			
 			for (Compileur c : compileurs) {
 				CompileurResponse resp = new CompileurResponse();
@@ -122,7 +122,7 @@ public class TapoteurApiController {
 	@GetMapping("/indenteurs")
 	public List<IndenteurResponse> findAllIndenteur(){
 		List<Indenteur> indenteurs = daoT.findAllIndenteur();
-		List<IndenteurResponse> responses = new ArrayList();
+		List<IndenteurResponse> responses = new ArrayList<>();
 					
 		for (Indenteur i : indenteurs) {
 			IndenteurResponse resp = new IndenteurResponse();
@@ -138,7 +138,7 @@ public class TapoteurApiController {
 	@GetMapping("/GrandDev")
 	public List<GrandDevResponse> findGrandDev(){
 		List<GrandDev> dave = daoT.findAllGrandDev();
-		List<GrandDevResponse> responses = new ArrayList();
+		List<GrandDevResponse> responses = new ArrayList<>();
 						
 		for (GrandDev d : dave) {
 			GrandDevResponse resp = new GrandDevResponse();
@@ -378,7 +378,6 @@ public class TapoteurApiController {
 	@JsonView(Views.Evenement.class)
 	public boolean inscription (@PathVariable int tapoteurId, @RequestBody @Valid InscriptionRequest inscriptionRequest, BindingResult result)
 	{
-		//Attention vérifier que c'est bien un fidele
 		Tapoteur tapoteur = daoT.findByIdWithInscriptions(tapoteurId).orElseThrow(TapoteurNotFoundException::new);
 		Evenement evenement = daoE.findByIdWithInscrits(inscriptionRequest.getEvenementId()).orElseThrow(EvenementNotFoundException::new);
 		
