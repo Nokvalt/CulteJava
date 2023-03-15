@@ -48,7 +48,7 @@ public abstract class Tapoteur {
 	@JsonView(Views.Tapoteur.class)
 	@Column(nullable=false)
 	protected double sommeDon;
-	@OneToMany
+	@OneToMany(mappedBy="tapoteur")
 	@Column(nullable=false)
 	protected List<Don> dons;
 	
