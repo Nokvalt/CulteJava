@@ -1,5 +1,6 @@
 package c.culte.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -30,6 +31,11 @@ import c.culte.request.CompileurRequest;
 import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
+import c.culte.response.CompileurResponse;
+import c.culte.response.FideleResponse;
+import c.culte.response.GrandDevResponse;
+import c.culte.response.IndenteurResponse;
+import c.culte.response.TapoteurResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -42,24 +48,112 @@ public class TapoteurApiController {
 	// --------- FIND ALL --------- //
 	//FIND ALL TAPOTEUR
 	@GetMapping
-	@JsonView(Views.Tapoteur.class)
-	public List<Tapoteur> findAll(){
-		return daoT.findAll();
+	public List<TapoteurResponse> findAll(){
+		List<TapoteurResponse> responses = new ArrayList();
+		List <Tapoteur> tapoteurs = daoT.findAll();
+		TapoteurResponse response;
+		
+		for (Tapoteur t : tapoteurs) {
+			if (t instanceof Fidele) {
+				response = new FideleResponse();
+			}else if (t instanceof Compileur) {
+				response = new CompileurResponse();
+			}else if(t instanceof Indenteur) {
+				response = new IndenteurResponse();
+			}else{
+				response = new GrandDevResponse();
+			}
+			
+			BeanUtils.copyProperties(t, response);
+			responses.add(response);
+		}
+		return responses;
 	}
 	
 	//FIND ALL FIDELES
 	@GetMapping("/fideles")
-	@JsonView(Views.Fidele.class)
-	public List<Fidele> findAllFidele(){
-		return daoT.findAllFidele();
+	public List<FideleResponse> findAllFidele(){
+		List<Fidele> fideles = daoT.findAllFidele();
+		List<FideleResponse> responses = new ArrayList();
+		
+		for (Fidele f : fideles) {
+			FideleResponse resp = new FideleResponse();
+			BeanUtils.copyProperties(f, resp);
+			
+			responses.add(resp);
+		}
+		
+		return responses;
 	}
-	/*public List<FideleResponse> findAllFidele(){
-	List<Fidele> fideles = daoT.findAllFidele();
-	return ;
-	}*/
+	
+	//FIND ALL COMPILEUR
+		@GetMapping("/compileurs")
+		public List<CompileurResponse> findAllCompileur(){
+			List<Compileur> compileurs = daoT.findAllCompileur();
+			List<CompileurResponse> responses = new ArrayList();
+			
+			for (Compileur c : compileurs) {
+				CompileurResponse resp = new CompileurResponse();
+				BeanUtils.copyProperties(c, resp);
+				
+				responses.add(resp);
+			}
+			
+			return responses;
+		}
+		
+	//FIND ALL INDENTEURS
+	@GetMapping("/indenteurs")
+	public List<IndenteurResponse> findAllIndenteur(){
+		List<Indenteur> indenteurs = daoT.findAllIndenteur();
+		List<IndenteurResponse> responses = new ArrayList();
+					
+		for (Indenteur i : indenteurs) {
+			IndenteurResponse resp = new IndenteurResponse();
+			BeanUtils.copyProperties(i, resp);
+						
+			responses.add(resp);
+		}
+					
+		return responses;
+	}
+	
+	//FIND GRAND DEV
+	@GetMapping("/GrandDev")
+	public List<GrandDevResponse> findGrandDev(){
+		List<GrandDev> dave = daoT.findAllGrandDev();
+		List<GrandDevResponse> responses = new ArrayList();
+						
+		for (GrandDev d : dave) {
+			GrandDevResponse resp = new GrandDevResponse();
+			BeanUtils.copyProperties(d, resp);
+							
+			responses.add(resp);
+		}
+						
+		return responses;
+	}
 	
 	// --------- FIND BY ID --------- //
-	
+	@GetMapping("/{id}")
+	public TapoteurResponse findById(@PathVariable int id){
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		TapoteurResponse response;
+		
+		if (tapoteur instanceof Fidele) {
+			response = new FideleResponse();
+		}else if (tapoteur instanceof Compileur) {
+			response = new CompileurResponse();
+		}else if(tapoteur instanceof Indenteur) {
+			response = new IndenteurResponse();
+		}else{
+			response = new GrandDevResponse();
+		}
+		
+		BeanUtils.copyProperties(tapoteur, response);
+						
+		return response;
+	}
 	
 	// --------- ADD --------- //
 	//ADD FIDELE
