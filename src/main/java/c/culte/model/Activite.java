@@ -3,7 +3,7 @@ package c.culte.model;
 public enum Activite {
 	
 feteCreation("23 Mai"), naissanceProphete("19 Mai"), fetePopups("7 Avril"), 
-rassemblement, pelerinnage, promotion;
+rassemblement, pelerinnage, promotion, banissement;
 	
 	private String date;
 

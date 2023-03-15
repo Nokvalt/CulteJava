@@ -394,7 +394,6 @@ public class TapoteurApiController {
 	
 	
 	// --------- MODIFICATION PROFIL --------- //
-	//EDIT FIDELE
 	@PutMapping("/editerUtilisateur/{id}")
 	@JsonView(Views.Fidele.class)
 	public Tapoteur editUser(@PathVariable int id, @RequestBody @Valid UserEditRequest userRequest, BindingResult result) {
@@ -433,4 +432,74 @@ public class TapoteurApiController {
 		
 		return daoT.save(tapoteur);
 	}
+	
+	
+	// --------- MODIFICATION RANG TAPOTEUR --------- //
+	//Promotion Fidèle / Identeur
+	@PostMapping("/promouvoir/{id}")
+	@JsonView(Views.Tapoteur.class)
+	public Tapoteur promouvoir(@PathVariable int id) {
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		Tapoteur newTapoteur;
+		
+		if (tapoteur instanceof Fidele) {//change en indenteur
+			newTapoteur = new Indenteur();
+		}else if(tapoteur instanceof Indenteur) {//change en compileur
+			newTapoteur = new Compileur();
+		}else {
+			throw new TapoteurBadRequestException();
+		}
+		
+		BeanUtils.copyProperties(tapoteur, newTapoteur);
+		daoT.delete(tapoteur);
+		
+		return daoT.save(newTapoteur);
+	}
+	
+	//Rétrogradation Compileur / Indenteur
+	@PostMapping("/retrograder/{id}")
+	@JsonView(Views.Tapoteur.class)
+	public Tapoteur retrograder(@PathVariable int id) {
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		Tapoteur newTapoteur;
+		
+		if (tapoteur instanceof Indenteur) {
+			newTapoteur = new Fidele();
+		}else if(tapoteur instanceof Compileur) {//change en compileur
+			newTapoteur = new Indenteur();
+		}else {
+			throw new TapoteurBadRequestException();
+		}
+		
+		BeanUtils.copyProperties(tapoteur, newTapoteur);
+		daoT.delete(tapoteur);
+		
+		return daoT.save(newTapoteur);
+	}
+	
+	//Bannissement
+	@DeleteMapping("/bannissement/{id}") //potentiellement faire une table pour les BANNIS
+	@JsonView(Views.Tapoteur.class)
+	public boolean bannissement(@PathVariable int id) {
+		try {
+			this.daoT.deleteById(id);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+	}
+	
+	//Nouveau GrandDev
+	@PostMapping("/passation/{id}")
+	@JsonView(Views.Tapoteur.class)
+	public Tapoteur passation(@PathVariable int id) {
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		GrandDev newDave = new GrandDev();
+		
+		BeanUtils.copyProperties(tapoteur, newDave);
+		daoT.delete(tapoteur);
+		
+		return daoT.save(newDave);
+	}
+	
 }
