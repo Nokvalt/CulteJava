@@ -17,11 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.dao.IDAOEvenement;
+import c.culte.dao.IDAOTapoteur;
 import c.culte.exception.EvenementBadRequestException;
 import c.culte.exception.EvenementNotFoundException;
+import c.culte.exception.TapoteurNotFoundException;
 import c.culte.model.Activite;
 import c.culte.model.Evenement;
+import c.culte.model.Fidele;
+import c.culte.model.Tapoteur;
 import c.culte.request.EvenementRequest;
+import c.culte.request.InscriptionRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -30,6 +35,9 @@ public class EvenementApiController {
 	
 	@Autowired
 	private IDAOEvenement daoEvenement;
+	
+	@Autowired
+	private IDAOTapoteur daoTapoteur;
 	
 	@GetMapping
 	@JsonView(Views.Evenement.class)
@@ -44,9 +52,38 @@ public class EvenementApiController {
 		return this.daoEvenement.findById(id).orElseThrow(EvenementNotFoundException::new);
 	}
 	
+	@GetMapping("/by-tapoteur-id/{tapoteurId}")
+	@JsonView(Views.Evenement.class)
+	public List<Evenement> findAllByTapoteurId(@PathVariable int tapoteurId) {
+		
+		
+		
+		return this.daoEvenement.findAllByInscritsId(tapoteurId);
+		
+		
+	}
 	
-	
-	
+	@PutMapping("/inscription/{tapoteurId}")
+	@JsonView(Views.Evenement.class)
+	public boolean inscription (@PathVariable int tapoteurId, @RequestBody @Valid InscriptionRequest inscriptionRequest, BindingResult result )
+	{
+
+		//Attention vérifier que c'est bien un fidele
+		Fidele fidele = (Fidele) daoTapoteur.findByIdWithInscriptions(tapoteurId).orElseThrow(TapoteurNotFoundException::new);
+		
+		Evenement evenement = daoEvenement.findByIdWithInscrits(inscriptionRequest.getEvenementId()).orElseThrow(EvenementNotFoundException::new);
+		
+		evenement.getInscrits().add(fidele);
+		
+		fidele.getInscriptions().add(evenement);
+		
+		daoTapoteur.save(fidele);
+		daoEvenement.save(evenement);
+		
+		return true;
+		
+		
+	}
 	
 	
 	

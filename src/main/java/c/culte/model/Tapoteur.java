@@ -51,6 +51,7 @@ public abstract class Tapoteur {
 	@Column(nullable=true)
 	protected String imageProfil;
 	@OneToMany
+	@OneToMany(mappedBy="tapoteur")
 	@Column(nullable=false)
 	protected List<Don> dons;
 	

@@ -94,5 +94,13 @@ public class Evenement {
 		this.activiteEvent = activiteEvent;
 	}
 
+	public List<Fidele> getInscrits() {
+		return inscrits;
+	}
+
+	public void setInscrits(List<Fidele> inscrits) {
+		this.inscrits = inscrits;
+	}
+
 
 }
