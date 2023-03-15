@@ -2,6 +2,10 @@ package c.culte.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import c.culte.api.Views;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,16 +22,21 @@ public class Don {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable=false)
+	@JsonView(Views.Don.class)
 	private Integer id;
 	
 	@ManyToOne
+	@JsonView(Views.Don.class)
 	@JoinColumn(nullable=false)
 	private Tapoteur tapoteur;
 	
 	@Column(name = "montant", nullable=false)
+	@JsonView(Views.Don.class)
 	private double montant;
 	
 	@Column(name = "heure", nullable=false)
+	@JsonView(Views.Don.class)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateDon;
 
 	public Don(Integer id, Tapoteur tapoteur, double montant, LocalDate dateDon) {
