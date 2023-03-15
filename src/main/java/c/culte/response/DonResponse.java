@@ -2,10 +2,12 @@ package c.culte.response;
 
 import java.time.LocalDate;
 
+import c.culte.model.Tapoteur;
+
 public class DonResponse {
 	
 	private Integer id;
-	private Integer tapoteurId;
+	private Tapoteur tapoteur;
 	private double montant;
 	private LocalDate dateDon;
 	public Integer getId() {
@@ -14,11 +16,11 @@ public class DonResponse {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getTapoteurId() {
-		return tapoteurId;
+	public Tapoteur getTapoteur() {
+		return tapoteur;
 	}
-	public void setTapoteurId(Integer tapoteurId) {
-		this.tapoteurId = tapoteurId;
+	public void setTapoteur(Tapoteur tapoteur) {
+		this.tapoteur = tapoteur;
 	}
 	public double getMontant() {
 		return montant;
