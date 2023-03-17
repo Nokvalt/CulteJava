@@ -8,6 +8,8 @@ public class CulteJavaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CulteJavaApplication.class, args);
+		
+		
 	}
 
 }
