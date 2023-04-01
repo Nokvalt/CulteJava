@@ -1,6 +1,5 @@
 package c.culte.api;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +35,11 @@ import c.culte.model.Indenteur;
 import c.culte.model.Tapoteur;
 import c.culte.request.BannissementRequest;
 import c.culte.request.CompileurRequest;
+import c.culte.request.ConnexionRequest;
 import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
 import c.culte.request.InscriptionRequest;
-import c.culte.request.TapoteurRequest;
 import c.culte.request.UserEditRequest;
 import c.culte.response.CompileurResponse;
 import c.culte.response.FideleResponse;
@@ -61,6 +60,18 @@ public class TapoteurApiController {
 	
 	@Autowired
 	IDAOBannis daoB;
+	
+	// --------- CONNEXION --------- //
+	@GetMapping("/connexion")
+	public boolean findByLogin(@RequestBody @Valid ConnexionRequest connexionRequest, BindingResult result){		
+		Tapoteur tapoteur = daoT.findByLogin(connexionRequest.getLogin()).orElseThrow(TapoteurNotFoundException::new);
+		
+		if (tapoteur.getPassword().equals(connexionRequest.getMdp())) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	// --------- FIND ALL --------- //
 	//FIND ALL TAPOTEUR
