@@ -40,6 +40,7 @@ import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
 import c.culte.request.InscriptionRequest;
+import c.culte.request.TapoteurRequest;
 import c.culte.request.UserEditRequest;
 import c.culte.response.CompileurResponse;
 import c.culte.response.FideleResponse;
@@ -81,6 +82,12 @@ public class TapoteurApiController {
 			}
 			
 			BeanUtils.copyProperties(t, response);
+			response.setVoie(t.getAdresse().getVoie());
+			response.setNumero(t.getAdresse().getNumero());
+			response.setCp(t.getAdresse().getCp());
+			response.setVille(t.getAdresse().getVille());
+			response.setPays(t.getAdresse().getPays());
+			
 			responses.add(response);
 		}
 		return responses;
