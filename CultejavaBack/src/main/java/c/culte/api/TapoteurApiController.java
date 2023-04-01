@@ -103,6 +103,12 @@ public class TapoteurApiController {
 			FideleResponse resp = new FideleResponse();
 			BeanUtils.copyProperties(f, resp);
 			
+			resp.setVoie(f.getAdresse().getVoie());
+			resp.setNumero(f.getAdresse().getNumero());
+			resp.setCp(f.getAdresse().getCp());
+			resp.setVille(f.getAdresse().getVille());
+			resp.setPays(f.getAdresse().getPays());
+			
 			responses.add(resp);
 		}
 		
@@ -119,6 +125,12 @@ public class TapoteurApiController {
 				CompileurResponse resp = new CompileurResponse();
 				BeanUtils.copyProperties(c, resp);
 				
+				resp.setVoie(c.getAdresse().getVoie());
+				resp.setNumero(c.getAdresse().getNumero());
+				resp.setCp(c.getAdresse().getCp());
+				resp.setVille(c.getAdresse().getVille());
+				resp.setPays(c.getAdresse().getPays());
+				
 				responses.add(resp);
 			}
 			
@@ -134,6 +146,12 @@ public class TapoteurApiController {
 		for (Indenteur i : indenteurs) {
 			IndenteurResponse resp = new IndenteurResponse();
 			BeanUtils.copyProperties(i, resp);
+			
+			resp.setVoie(i.getAdresse().getVoie());
+			resp.setNumero(i.getAdresse().getNumero());
+			resp.setCp(i.getAdresse().getCp());
+			resp.setVille(i.getAdresse().getVille());
+			resp.setPays(i.getAdresse().getPays());
 						
 			responses.add(resp);
 		}
@@ -150,6 +168,12 @@ public class TapoteurApiController {
 		for (GrandDev d : dave) {
 			GrandDevResponse resp = new GrandDevResponse();
 			BeanUtils.copyProperties(d, resp);
+			
+			resp.setVoie(d.getAdresse().getVoie());
+			resp.setNumero(d.getAdresse().getNumero());
+			resp.setCp(d.getAdresse().getCp());
+			resp.setVille(d.getAdresse().getVille());
+			resp.setPays(d.getAdresse().getPays());
 							
 			responses.add(resp);
 		}
@@ -174,6 +198,11 @@ public class TapoteurApiController {
 		}
 		
 		BeanUtils.copyProperties(tapoteur, response);
+		response.setVoie(tapoteur.getAdresse().getVoie());
+		response.setNumero(tapoteur.getAdresse().getNumero());
+		response.setCp(tapoteur.getAdresse().getCp());
+		response.setVille(tapoteur.getAdresse().getVille());
+		response.setPays(tapoteur.getAdresse().getPays());
 						
 		return response;
 	}
