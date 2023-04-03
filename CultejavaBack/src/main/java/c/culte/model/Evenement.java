@@ -102,5 +102,11 @@ public class Evenement {
 		this.inscrits = inscrits;
 	}
 
+	@Override
+	public String toString() {
+		return "Evenement [id=" + id + ", nom=" + nom + ", dateEvent=" + dateEvent + ", lieu=" + lieu
+				+ ", activiteEvent=" + activiteEvent + ", inscrits=" + inscrits + "]";
+	}
 
+	
 }

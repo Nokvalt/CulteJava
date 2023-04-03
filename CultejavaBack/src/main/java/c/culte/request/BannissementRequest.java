@@ -9,7 +9,8 @@ public class BannissementRequest {
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateBannissement;
 	private String motif;
-	private String infoBanquaires;
+	private Integer tapoteurId;
+	//private String infoBanquaires;
 	
 	
 	public LocalDate getDateBannissement() {
@@ -24,12 +25,20 @@ public class BannissementRequest {
 	public void setMotif(String motif) {
 		this.motif = motif;
 	}
-	public String getInfoBanquaires() {
+	/*public String getInfoBanquaires() {
 		return infoBanquaires;
 	}
 	public void setInfoBanquaires(String infoBanquaires) {
 		this.infoBanquaires = infoBanquaires;
+	}*/
+	public Integer getTapoteurId() {
+		return tapoteurId;
 	}
+	public void setTapoteurId(Integer tapoteurId) {
+		this.tapoteurId = tapoteurId;
+	}
+	
+	
 	
 	
 }

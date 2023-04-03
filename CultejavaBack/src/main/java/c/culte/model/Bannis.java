@@ -35,7 +35,7 @@ public class Bannis {
 	@Column(length=250, nullable=false)
 	private String motif;
 	@JsonView(Views.Bannis.class)
-	@Column(length=150, nullable=false)
+	@Column(length=150)
 	private String infoBanquaires;
 	
 	@OneToOne

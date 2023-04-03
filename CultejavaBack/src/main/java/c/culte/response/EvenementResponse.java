@@ -43,6 +43,11 @@ public class EvenementResponse {
 	public void setNomActivite(String nomActivite) {
 		this.nomActivite = nomActivite;
 	}
+	@Override
+	public String toString() {
+		return "EvenementResponse [id=" + id + ", nom=" + nom + ", dateEvent=" + dateEvent + ", lieu=" + lieu
+				+ ", nomActivite=" + nomActivite + "]";
+	}
 	
 	
 	

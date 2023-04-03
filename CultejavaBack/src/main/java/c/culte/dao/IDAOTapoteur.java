@@ -1,5 +1,6 @@
 package c.culte.dao;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +31,7 @@ public interface IDAOTapoteur extends JpaRepository<Tapoteur,Integer> {
 	public Optional<Tapoteur> findByIdWithInscriptions(int evenementId);
 	
 	public Optional<Tapoteur> findByLogin(String login);
+	 
+	public List<Tapoteur> findByIdNotIn(List<Integer> idBannis);
 	
 }

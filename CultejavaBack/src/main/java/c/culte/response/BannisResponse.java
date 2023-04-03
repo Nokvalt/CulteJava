@@ -12,6 +12,7 @@ public class BannisResponse {
 	private LocalDate dateBannissement;
 	private String motif;
 	private String infoBanquaires;
+	private Integer tapoteurId;
 	
 	
 	
@@ -51,4 +52,11 @@ public class BannisResponse {
 	public void setInfoBanquaires(String infoBanquaires) {
 		this.infoBanquaires = infoBanquaires;
 	}
+	public Integer getTapoteurId() {
+		return tapoteurId;
+	}
+	public void setTapoteurId(Integer tapoteurId) {
+		this.tapoteurId = tapoteurId;
+	}
+	
 }

@@ -25,6 +25,7 @@ import c.culte.exception.BannisBadRequestException;
 import c.culte.exception.EvenementNotFoundException;
 import c.culte.exception.TapoteurBadRequestException;
 import c.culte.exception.TapoteurNotFoundException;
+import c.culte.exception.WrongLoginPasswordException;
 import c.culte.model.Adresse;
 import c.culte.model.Bannis;
 import c.culte.model.Compileur;
@@ -62,15 +63,34 @@ public class TapoteurApiController {
 	IDAOBannis daoB;
 	
 	// --------- CONNEXION --------- //
-	@GetMapping("/connexion")
-	public boolean findByLogin(@RequestBody @Valid ConnexionRequest connexionRequest, BindingResult result){		
+	@PostMapping("/connexion")
+	public TapoteurResponse findByLogin(@RequestBody @Valid ConnexionRequest connexionRequest, BindingResult result){		
 		Tapoteur tapoteur = daoT.findByLogin(connexionRequest.getLogin()).orElseThrow(TapoteurNotFoundException::new);
+		TapoteurResponse response;
 		
-		if (tapoteur.getPassword().equals(connexionRequest.getMdp())) {
-			return true;
+		if (tapoteur.getPassword().equals(connexionRequest.getPassword())) {
+			if (tapoteur instanceof Fidele) {
+				response = new FideleResponse();
+			}else if (tapoteur instanceof Compileur) {
+				response = new CompileurResponse();
+			}else if(tapoteur instanceof Indenteur) {
+				response = new IndenteurResponse();
+			}else{
+				response = new GrandDevResponse();
+			}
+			
+			BeanUtils.copyProperties(tapoteur, response);
+			response.setVoie(tapoteur.getAdresse().getVoie());
+			response.setNumero(tapoteur.getAdresse().getNumero());
+			response.setCp(tapoteur.getAdresse().getCp());
+			response.setVille(tapoteur.getAdresse().getVille());
+			response.setPays(tapoteur.getAdresse().getPays());
+			
+			return response;
+			
 		}
 		
-		return false;
+		throw new WrongLoginPasswordException();
 	}
 	
 	// --------- FIND ALL --------- //
@@ -78,6 +98,7 @@ public class TapoteurApiController {
 	@GetMapping
 	public List<TapoteurResponse> findAll(){
 		List<TapoteurResponse> responses = new ArrayList<>();
+		List<Integer> bannisId = daoB.findAllId();
 		List <Tapoteur> tapoteurs = daoT.findAll();
 		TapoteurResponse response;
 		
@@ -490,13 +511,15 @@ public class TapoteurApiController {
 	
 	// --------- MODIFICATION RANG TAPOTEUR --------- //
 	//Promotion Fidèle / Identeur
-	@PostMapping("/promouvoir/{id}")
+	@GetMapping("/promouvoir/{id}")
 	@JsonView(Views.Tapoteur.class)
 	public Tapoteur promouvoir(@PathVariable int id) {
 		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		System.out.println("ICIIIIIIIIIIIIIIIIIIIIIII" + tapoteur.getClass());
 		Tapoteur newTapoteur;
 		
 		if (tapoteur instanceof Fidele) {//change en indenteur
+			System.out.println("test");
 			newTapoteur = new Indenteur();
 		}else if(tapoteur instanceof Indenteur) {//change en compileur
 			newTapoteur = new Compileur();
@@ -511,7 +534,7 @@ public class TapoteurApiController {
 	}
 	
 	//Rétrogradation Compileur / Indenteur
-	@PostMapping("/retrograder/{id}")
+	@GetMapping("/retrograder/{id}")
 	@JsonView(Views.Tapoteur.class)
 	public Tapoteur retrograder(@PathVariable int id) {
 		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
@@ -532,30 +555,36 @@ public class TapoteurApiController {
 	}
 	
 	//Bannissement
-	@PostMapping("/bannissement/{id}")
+	@PostMapping("/bannissement")
 	@JsonView(Views.Bannis.class)
-	public Bannis bannissement(@PathVariable int id, @RequestBody @Valid BannissementRequest bannissementRequest, BindingResult result) {
+	public Bannis bannissement(@RequestBody @Valid BannissementRequest bannissementRequest, BindingResult result) {
 		if (result.hasErrors()) {
 			throw new BannisBadRequestException();
 		}
 		
 		Bannis bannis = new Bannis();
-		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		Tapoteur tapoteur = daoT.findById(bannissementRequest.getTapoteurId()).orElseThrow(TapoteurNotFoundException::new);
 		
-		bannis.setDateBannissement(bannissementRequest.getDateBannissement());
-		bannis.setInfoBanquaires(bannissementRequest.getInfoBanquaires());
-		bannis.setMotif(bannissementRequest.getMotif());
-		bannis.setNom(tapoteur.getNom());
-		bannis.setPrenom(tapoteur.getPrenom());
-		bannis.setTapoteur(tapoteur);
+		if (daoB.findByTapoteurId(tapoteur.getId()) == null) {
+			bannis.setDateBannissement(bannissementRequest.getDateBannissement());
+			//bannis.setInfoBanquaires(bannissementRequest.getInfoBanquaires());
+			bannis.setMotif(bannissementRequest.getMotif());
+			bannis.setNom(tapoteur.getNom());
+			bannis.setPrenom(tapoteur.getPrenom());
+			bannis.setTapoteur(tapoteur);
+			
+			daoB.save(bannis);
+			
+			return bannis;
+		}
 		
-		daoB.save(bannis);
+		throw new TapoteurBadRequestException();
 		
-		return bannis;
+		
 	}
 	
 	//Nouveau GrandDev
-	@PostMapping("/passation/{id}")
+	@GetMapping("/passation/{id}")
 	@JsonView(Views.Tapoteur.class)
 	public Tapoteur passation(@PathVariable int id) {
 		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);

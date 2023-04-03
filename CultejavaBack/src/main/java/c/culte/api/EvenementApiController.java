@@ -46,6 +46,7 @@ public class EvenementApiController {
 		List<EvenementResponse> responses = new ArrayList();
 		List<Evenement> evenements = daoEvenement.findAll();
 		
+		
 		for (Evenement e : evenements) {
 			EvenementResponse response = new EvenementResponse();
 			BeanUtils.copyProperties(e, response);
@@ -72,7 +73,7 @@ public class EvenementApiController {
 	@JsonView(Views.Evenement.class)
 	public Evenement add(@Valid @RequestBody EvenementRequest evenementRequest, BindingResult result) {
 	    if (result.hasErrors()) {
-	       // throw new EvenementBadRequestException();
+	       throw new EvenementBadRequestException();
 	    }
 	    
 	    Evenement evenement = new Evenement();
