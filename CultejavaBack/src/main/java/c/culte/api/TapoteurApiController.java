@@ -98,8 +98,6 @@ public class TapoteurApiController {
 	@GetMapping
 	public List<TapoteurResponse> findAll(){
 		List<TapoteurResponse> responses = new ArrayList<>();
-//		List<Integer> bannisId = daoB.findAllTapoteurId(); //on récupère l'id des tapoteurs bannis
-//		List <Tapoteur> tapoteurs = daoT.findByIdNotIn(bannisId); //on récupère que les tapoteurs qui ne sont pas bannis
 		List<Tapoteur> tapoteurs = daoT.findAllWithoutBannis();
 		TapoteurResponse response;
 		

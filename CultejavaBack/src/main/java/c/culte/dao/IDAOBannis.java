@@ -13,7 +13,4 @@ public interface IDAOBannis extends JpaRepository<Bannis,Integer> {
 	
 	public Optional<Bannis> findByTapoteurId(Integer id);
 	
-	@Query("select b.tapoteur.id from Bannis b left join fetch Tapoteur")
-	public List<Integer> findAllTapoteurId();
-	
 }
