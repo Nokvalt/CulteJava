@@ -31,7 +31,8 @@ public interface IDAOTapoteur extends JpaRepository<Tapoteur,Integer> {
 	public Optional<Tapoteur> findByIdWithInscriptions(int evenementId);
 	
 	public Optional<Tapoteur> findByLogin(String login);
-	 
+	
+	@Query("select t from Tapoteur t where t.id NOT IN (?1)")
 	public List<Tapoteur> findByIdNotIn(List<Integer> idBannis);
 	
 }
