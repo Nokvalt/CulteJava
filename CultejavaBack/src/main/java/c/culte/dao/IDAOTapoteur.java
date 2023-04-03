@@ -35,4 +35,7 @@ public interface IDAOTapoteur extends JpaRepository<Tapoteur,Integer> {
 	@Query("select t from Tapoteur t where t.id NOT IN (?1)")
 	public List<Tapoteur> findByIdNotIn(List<Integer> idBannis);
 	
+	@Query("select t from Tapoteur t left join t.bannis b where b is null")
+	public List<Tapoteur> findAllWithoutBannis();
+	
 }
