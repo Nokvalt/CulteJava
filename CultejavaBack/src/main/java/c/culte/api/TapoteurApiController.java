@@ -565,10 +565,6 @@ public class TapoteurApiController {
 		Bannis bannis = new Bannis();
 		Tapoteur tapoteur = daoT.findById(bannissementRequest.getTapoteurId()).orElseThrow(TapoteurNotFoundException::new);
 		
-		System.out.println(bannissementRequest.getTapoteurId());
-		
-		System.out.println(daoB.findByTapoteurId(tapoteur.getId()).isEmpty());
-		
 		if (daoB.findByTapoteurId(tapoteur.getId()).isEmpty()) {
 			System.out.println("test??");
 			bannis.setDateBannissement(bannissementRequest.getDateBannissement());
@@ -583,7 +579,6 @@ public class TapoteurApiController {
 			return bannis;
 		}
 		
-		System.out.println("nooooooooooooooooooooooooooooNONONONONONONONO");
 		throw new TapoteurBadRequestException();
 		
 		
