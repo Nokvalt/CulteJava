@@ -19,17 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import c.culte.dao.IDAOEvenement;
-import c.culte.dao.IDAOTapoteur;
 import c.culte.exception.EvenementBadRequestException;
 import c.culte.exception.EvenementNotFoundException;
-import c.culte.exception.TapoteurNotFoundException;
 import c.culte.model.Activite;
 import c.culte.model.Evenement;
-import c.culte.model.Fidele;
-import c.culte.model.Tapoteur;
 import c.culte.request.EvenementRequest;
-import c.culte.request.InscriptionRequest;
 import c.culte.response.EvenementResponse;
+import c.culte.response.TapoteurResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -67,6 +63,11 @@ public class EvenementApiController {
 		
 		return response;
 	}
+	
+	/*@GetMapping("/{id}/tapoteurs")	
+	public List<TapoteurResponse> findAllTapoteurByEvenement(@PathVariable int id) {
+		
+	}*/
 	
 	
 	@PostMapping
