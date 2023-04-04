@@ -10,9 +10,12 @@ import c.culte.model.Evenement;
 
 public interface IDAOEvenement extends JpaRepository<Evenement, Integer>{
 
-
-	public List<Evenement> findAllByInscritsId (int inscritsId);
+	@Query("select e from Evenement e join e.inscrits i where i.id = ?1")
+	public List<Evenement> findAllByInscritsId (int tapoteurId);
 	
 	@Query("select e from Evenement e left join fetch e.inscrits where e.id = ?1")
-	public Optional<Evenement> findByIdWithInscrits(int tapoteurId);
+	public Optional<Evenement> findByIdWithInscrits(int eventId);
+	
+	@Query("select e from Evenement e left join fetch e.inscrits i")
+	public List<Evenement> findAllWithInscrits ();
 }

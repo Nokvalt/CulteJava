@@ -12,6 +12,7 @@ public class EvenementResponse {
 	private LocalDate dateEvent;
 	private String lieu;
 	private String nomActivite;
+	private boolean inscrit = false;
 	
 	public int getId() {
 		return id;
@@ -42,6 +43,14 @@ public class EvenementResponse {
 	}
 	public void setNomActivite(String nomActivite) {
 		this.nomActivite = nomActivite;
+	}
+	
+	
+	public boolean isInscrit() {
+		return inscrit;
+	}
+	public void setInscrit(boolean inscrit) {
+		this.inscrit = inscrit;
 	}
 	@Override
 	public String toString() {

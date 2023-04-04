@@ -65,7 +65,7 @@ public class TapoteurApiController {
 	// --------- CONNEXION --------- //
 	@PostMapping("/connexion")
 	public TapoteurResponse findByLogin(@RequestBody @Valid ConnexionRequest connexionRequest, BindingResult result){		
-		Tapoteur tapoteur = daoT.findByLogin(connexionRequest.getLogin()).orElseThrow(TapoteurNotFoundException::new);
+		Tapoteur tapoteur = daoT.findByLoginWithoutBannis(connexionRequest.getLogin()).orElseThrow(TapoteurNotFoundException::new);
 		TapoteurResponse response;
 		
 		if (tapoteur.getPassword().equals(connexionRequest.getPassword())) {

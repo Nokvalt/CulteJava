@@ -36,7 +36,7 @@ public class EvenementApiController {
 	@Autowired
 	private IDAOEvenement daoEvenement;
 	
-	@GetMapping
+	@GetMapping("")
 	public List<EvenementResponse> findAll()
 	{	
 		List<EvenementResponse> responses = new ArrayList();
@@ -47,6 +47,30 @@ public class EvenementApiController {
 			EvenementResponse response = new EvenementResponse();
 			BeanUtils.copyProperties(e, response);
 			response.setNomActivite(e.getActiviteEvent().name());
+			responses.add(response);
+		}
+		
+		return responses;
+	}
+	
+	@GetMapping("/by-fidele/{id}")
+	public List<EvenementResponse> findAllByFidele(int idFidele)
+	{	
+		List<EvenementResponse> responses = new ArrayList();
+		List<Evenement> evenements = daoEvenement.findAllWithInscrits();
+		
+		
+		for (Evenement e : evenements) {
+			EvenementResponse response = new EvenementResponse();
+			BeanUtils.copyProperties(e, response);
+			response.setNomActivite(e.getActiviteEvent().name());
+			
+			e.getInscrits().forEach(i -> {
+				if(i.getId() == idFidele) {
+					response.setInscrit(true);
+				}
+			});
+			
 			responses.add(response);
 		}
 		

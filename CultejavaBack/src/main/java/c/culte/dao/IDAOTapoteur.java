@@ -30,7 +30,8 @@ public interface IDAOTapoteur extends JpaRepository<Tapoteur,Integer> {
 	@Query("select t from Tapoteur t left join fetch t.inscriptions where t.id = ?1")
 	public Optional<Tapoteur> findByIdWithInscriptions(int evenementId);
 	
-	public Optional<Tapoteur> findByLogin(String login);
+	@Query("select t from Tapoteur t left join t.bannis b where b is null and t.login = ?1")
+	public Optional<Tapoteur> findByLoginWithoutBannis(String login);
 	
 	@Query("select t from Tapoteur t left join t.bannis b where b is null")
 	public List<Tapoteur> findAllWithoutBannis();
