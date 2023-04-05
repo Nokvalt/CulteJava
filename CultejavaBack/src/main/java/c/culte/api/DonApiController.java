@@ -89,6 +89,9 @@ public class DonApiController {
 		dev.setAllDons(don.getMontant());
 		daoTapoteur.save(dev);
 		
+		tapoteur.setSommeDon(tapoteur.getSommeDon() + don.getMontant());
+		daoTapoteur.save(tapoteur);
+		
 		return daoDon.save(don);
 	}
 	
