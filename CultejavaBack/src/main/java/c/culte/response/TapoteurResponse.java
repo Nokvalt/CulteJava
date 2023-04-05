@@ -21,6 +21,7 @@ public class TapoteurResponse {
 	
 	//fidele
 	protected double sommeDon;
+	protected String punition;
 	protected String imageProfil;
 	
 	//indenteur
@@ -142,6 +143,12 @@ public class TapoteurResponse {
 	}
 	public void setPays(String pays) {
 		this.pays = pays;
+	}
+	public String getPunition() {
+		return punition;
+	}
+	public void setPunition(String punition) {
+		this.punition = punition;
 	}
 	public void setRang(String rang) {
 		this.rang = rang;

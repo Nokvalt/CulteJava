@@ -11,6 +11,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -55,6 +57,11 @@ public abstract class Tapoteur {
 	protected double sommeDon;
 	@Column(nullable=true)
 	protected String imageProfil;
+	@Column(nullable=false, columnDefinition = "ENUM('aucune', 'dactylo')")
+	@Enumerated(EnumType.STRING)
+	@JsonView(Views.Tapoteur.class)
+	protected Punition punition = Punition.valueOf("aucune");
+	
 	@OneToMany(mappedBy="tapoteur")
 	@Column(nullable=false)
 	protected List<Don> dons;
@@ -174,6 +181,26 @@ public abstract class Tapoteur {
 
 	public void setDons(List<Don> dons) {
 		this.dons = dons;
+	}
+
+
+	public Punition getPunition() {
+		return punition;
+	}
+
+
+	public void setPunition(Punition punition) {
+		this.punition = punition;
+	}
+
+
+	public Bannis getBannis() {
+		return bannis;
+	}
+
+
+	public void setBannis(Bannis bannis) {
+		this.bannis = bannis;
 	}
 
 
