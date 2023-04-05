@@ -99,9 +99,9 @@ public class TapoteurApiController {
 	public List<TapoteurResponse> findAll(){
 		List<TapoteurResponse> responses = new ArrayList<>();
 		List<Tapoteur> tapoteurs = daoT.findAllWithoutBannis();
-		TapoteurResponse response = new TapoteurResponse();
 		
 		for (Tapoteur t : tapoteurs) {
+			TapoteurResponse response = new TapoteurResponse();
 			if (t instanceof Fidele) {
 				response.setRang("Fidele");
 			}else if (t instanceof Compileur) {
@@ -596,16 +596,17 @@ public class TapoteurApiController {
 	@JsonView(Views.Tapoteur.class)
 	public Tapoteur passation(@PathVariable int id) {
 		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		GrandDev dev = this.daoT.findGrandDev();
 		GrandDev newDave = new GrandDev();
 		
+		//Create new dev
 		BeanUtils.copyProperties(tapoteur, newDave);
-		newDave.setArgentVole(0.0);
-		
-		GrandDev dev = this.daoT.findGrandDev();
-		dev.setArgentVole(0.0);
-		newDave.setAllDons(dev.getAllDons()); //recuperer la somme des dons dans le nouveau grand dev
-		
 		daoT.delete(tapoteur);
+		newDave.setArgentVole(0.0);
+		newDave.setAllDons(dev.getAllDons());
+		
+		//delete ancien dev
+		daoT.delete(dev);
 		
 		return daoT.save(newDave);
 	}
