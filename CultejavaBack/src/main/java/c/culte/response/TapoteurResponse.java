@@ -18,6 +18,7 @@ public abstract class TapoteurResponse {
 	protected String ville;
 	protected String cp;
 	protected String pays;
+	protected String imageProfil;
 	
 	public Integer getId() {
 		return id;
@@ -93,6 +94,12 @@ public abstract class TapoteurResponse {
 	}
 	public void setPays(String pays) {
 		this.pays = pays;
+	}
+	public String getImageProfil() {
+		return imageProfil;
+	}
+	public void setImageProfil(String imageProfil) {
+		this.imageProfil = imageProfil;
 	}
 	
 	
