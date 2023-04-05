@@ -54,7 +54,7 @@ public class EvenementApiController {
 	}
 	
 	@GetMapping("/by-fidele/{id}")
-	public List<EvenementResponse> findAllByFidele(int idFidele)
+	public List<EvenementResponse> findAllByFidele(@PathVariable int id)
 	{	
 		List<EvenementResponse> responses = new ArrayList();
 		List<Evenement> evenements = daoEvenement.findAllWithInscrits();
@@ -66,7 +66,7 @@ public class EvenementApiController {
 			response.setNomActivite(e.getActiviteEvent().name());
 			
 			e.getInscrits().forEach(i -> {
-				if(i.getId() == idFidele) {
+				if(i.getId() == id) {
 					response.setInscrit(true);
 				}
 			});
