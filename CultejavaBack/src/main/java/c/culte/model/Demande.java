@@ -21,14 +21,17 @@ public class Demande {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Demande.class)
 	private Integer id;
 	@Column(nullable=false)
+	@JsonView(Views.Demande.class)
 	private double montant;
 	@Column(nullable=false)
+	@JsonView(Views.Demande.class)
 	private String descriptif;
 	@Column(nullable=false, columnDefinition = "ENUM('enAttente', 'refusé')")
 	@Enumerated(EnumType.STRING)
-	@JsonView(Views.Evenement.class)
+	@JsonView(Views.Demande.class)
 	private Statut statut;
 	@OneToOne
 	@JoinColumn(name="indenteur", nullable=false)
