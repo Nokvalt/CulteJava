@@ -85,11 +85,9 @@ public class DonApiController {
 		
 		don.setTapoteur(tapoteur);
 		
-		List<GrandDev> dev = this.daoTapoteur.findAllGrandDev();
-		for (GrandDev d : dev) {
-			d.setSommeDon(don.getMontant());
-			daoTapoteur.save(d);
-		}
+		GrandDev dev = this.daoTapoteur.findGrandDev();
+		dev.setAllDons(don.getMontant());
+		daoTapoteur.save(dev);
 		
 		return daoDon.save(don);
 	}
