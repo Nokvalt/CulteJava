@@ -17,10 +17,10 @@ public class GrandDev extends Tapoteur {
 	@Column(length=10)
 	private String colPull;
 	
-	@Column(nullable = false)
-	private Double allDons;
-	@Column(nullable = false)
-	private Double argentVole;
+	@Column()
+	private Double allDons = 0.0;
+	@Column()
+	private Double argentVole = 0.0;
 	
 	
 	

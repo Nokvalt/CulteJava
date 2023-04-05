@@ -42,11 +42,8 @@ import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
 import c.culte.request.InscriptionRequest;
+import c.culte.request.TapoteurRequest;
 import c.culte.request.UserEditRequest;
-import c.culte.response.CompileurResponse;
-import c.culte.response.FideleResponse;
-import c.culte.response.GrandDevResponse;
-import c.culte.response.IndenteurResponse;
 import c.culte.response.TapoteurResponse;
 import jakarta.validation.Valid;
 
@@ -67,17 +64,19 @@ public class TapoteurApiController {
 	@PostMapping("/connexion")
 	public TapoteurResponse findByLogin(@RequestBody @Valid ConnexionRequest connexionRequest, BindingResult result){		
 		Tapoteur tapoteur = daoT.findByLoginWithoutBannis(connexionRequest.getLogin()).orElseThrow(TapoteurNotFoundException::new);
-		TapoteurResponse response;
+		TapoteurResponse response = new TapoteurResponse();
 		
 		if (tapoteur.getPassword().equals(connexionRequest.getPassword())) {
 			if (tapoteur instanceof Fidele) {
-				response = new FideleResponse();
+				response.setRang("Fidele");
 			}else if (tapoteur instanceof Compileur) {
-				response = new CompileurResponse();
+				response.setRang("Compileur");
 			}else if(tapoteur instanceof Indenteur) {
-				response = new IndenteurResponse();
+				response.setRang("Indenteur");
 			}else{
-				response = new GrandDevResponse();
+				response.setRang("Grand Dev");
+				response.setAllDons(((GrandDev) tapoteur).getAllDons());
+				response.setArgentVole(((GrandDev) tapoteur).getArgentVole());
 			}
 			
 			BeanUtils.copyProperties(tapoteur, response);
@@ -331,6 +330,8 @@ public class TapoteurApiController {
 			BeanUtils.copyProperties(grandDevRequest, dave);
 					
 			dave.setAdresse(adresse);
+			
+			System.out.println(dave);
 			return daoT.save(dave);
 		}
 	
@@ -600,12 +601,9 @@ public class TapoteurApiController {
 		BeanUtils.copyProperties(tapoteur, newDave);
 		newDave.setArgentVole(0.0);
 		
-		/*GrandDev dev = this.daoT.findAllGrandDev()[1];
-		for (GrandDev d : dev) {
-			d.setArgentVole(d.getSommeDon());
-			d.setSommeDon(0);
-		}
-		newDave.setSommeDon();*/ //recuperer la somme des dons dans le nouveau grand dev
+		GrandDev dev = this.daoT.findGrandDev();
+		dev.setArgentVole(0.0);
+		newDave.setAllDons(dev.getAllDons()); //recuperer la somme des dons dans le nouveau grand dev
 		
 		daoT.delete(tapoteur);
 		
@@ -616,10 +614,13 @@ public class TapoteurApiController {
 	// --------- VOLER LA CAGNOTTE --------- //
 	@GetMapping("/vider")
 	@JsonView(Views.Tapoteur.class)
-	public boolean viderCagnotte() {
+	public TapoteurResponse viderCagnotte() {
 		GrandDev dev = this.daoT.findGrandDev();
-		dev.setArgentVole(dev.getSommeDon());
-		dev.setSommeDon(0);
-		return false;
+		TapoteurResponse response = new TapoteurResponse();
+		dev.setArgentVole(dev.getArgentVole() + dev.getAllDons());
+		dev.setAllDons(0.0);
+		
+		BeanUtils.copyProperties(dev, response);
+		return response;
 	}
 }
