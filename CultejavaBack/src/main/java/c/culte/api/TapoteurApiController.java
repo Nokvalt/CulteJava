@@ -591,9 +591,30 @@ public class TapoteurApiController {
 		GrandDev newDave = new GrandDev();
 		
 		BeanUtils.copyProperties(tapoteur, newDave);
+		newDave.setArgentVole(0.0);
+		
+		/*GrandDev dev = this.daoT.findAllGrandDev()[1];
+		for (GrandDev d : dev) {
+			d.setArgentVole(d.getSommeDon());
+			d.setSommeDon(0);
+		}
+		newDave.setSommeDon();*/ //recuperer la somme des dons dans le nouveau grand dev
+		
 		daoT.delete(tapoteur);
 		
 		return daoT.save(newDave);
 	}
 	
+	
+	// --------- VOLER LA CAGNOTTE --------- //
+	@GetMapping("/vider")
+	@JsonView(Views.Tapoteur.class)
+	public boolean viderCagnotte() {
+		List<GrandDev> dev = this.daoT.findAllGrandDev();
+		for (GrandDev d : dev) {
+			d.setArgentVole(d.getSommeDon());
+			d.setSommeDon(0);
+		}
+		return false;
+	}
 }
