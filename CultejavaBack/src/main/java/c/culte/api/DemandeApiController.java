@@ -43,12 +43,12 @@ public class DemandeApiController {
 		return this.daoDemande.findAll();
 	}
 	
-	/*//trouver une demande par ID
+	//trouver une demande par ID
 	@GetMapping("/{id}")
 	@JsonView(Views.Demande.class)
 	public Demande findById(@PathVariable int id) {
 		return this.daoDemande.findById(id).orElseThrow(DemandeNotFoundException::new);
-	}*/
+	}
 	
 	//Ajouter une demande
 	@PostMapping // TODO a supprimer id ?

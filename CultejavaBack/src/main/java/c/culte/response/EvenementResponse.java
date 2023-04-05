@@ -52,6 +52,7 @@ public class EvenementResponse {
 	public void setInscrit(boolean inscrit) {
 		this.inscrit = inscrit;
 	}
+	
 	@Override
 	public String toString() {
 		return "EvenementResponse [id=" + id + ", nom=" + nom + ", dateEvent=" + dateEvent + ", lieu=" + lieu
