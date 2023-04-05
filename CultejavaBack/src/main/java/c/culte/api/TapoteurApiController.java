@@ -23,6 +23,7 @@ import c.culte.dao.IDAOEvenement;
 import c.culte.dao.IDAOTapoteur;
 import c.culte.exception.BannisBadRequestException;
 import c.culte.exception.EvenementNotFoundException;
+import c.culte.exception.PunitionBadRequestException;
 import c.culte.exception.TapoteurBadRequestException;
 import c.culte.exception.TapoteurNotFoundException;
 import c.culte.exception.WrongLoginPasswordException;
@@ -33,6 +34,7 @@ import c.culte.model.Evenement;
 import c.culte.model.Fidele;
 import c.culte.model.GrandDev;
 import c.culte.model.Indenteur;
+import c.culte.model.Punition;
 import c.culte.model.Tapoteur;
 import c.culte.request.BannissementRequest;
 import c.culte.request.CompileurRequest;
@@ -41,6 +43,7 @@ import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
 import c.culte.request.InscriptionRequest;
+import c.culte.request.PunitionRequest;
 import c.culte.request.UserEditRequest;
 import c.culte.response.CompileurResponse;
 import c.culte.response.FideleResponse;
@@ -594,6 +597,31 @@ public class TapoteurApiController {
 		daoT.delete(tapoteur);
 		
 		return daoT.save(newDave);
+	}
+	
+	// --------- PUNITIONS --------- //
+	@PutMapping("/punition/{id}")
+	@JsonView(Views.Tapoteur.class)
+	public Tapoteur punition(@PathVariable int id, @RequestBody @Valid PunitionRequest punitionRequest, BindingResult result) {
+		if (result.hasErrors()) {
+			throw new PunitionBadRequestException();
+		}
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		tapoteur.setPunition(Punition.valueOf(punitionRequest.getPunition()));
+		
+		return daoT.save(tapoteur);
+	}
+	
+	@PutMapping("/removePunition/{id}")
+	@JsonView(Views.Tapoteur.class)
+	public Tapoteur removePunition(@PathVariable int id, BindingResult result) {
+		if (result.hasErrors()) {
+			throw new PunitionBadRequestException();
+		}
+		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
+		tapoteur.setPunition(Punition.valueOf("aucune"));
+		
+		return daoT.save(tapoteur);
 	}
 	
 }

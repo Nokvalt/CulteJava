@@ -18,6 +18,7 @@ public abstract class TapoteurResponse {
 	protected String ville;
 	protected String cp;
 	protected String pays;
+	protected String punition;
 	
 	public Integer getId() {
 		return id;
@@ -93,6 +94,12 @@ public abstract class TapoteurResponse {
 	}
 	public void setPays(String pays) {
 		this.pays = pays;
+	}
+	public String getPunition() {
+		return punition;
+	}
+	public void setPunition(String punition) {
+		this.punition = punition;
 	}
 	
 	
