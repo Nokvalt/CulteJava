@@ -83,11 +83,16 @@ public class TapoteurApiController {
 			}
 			
 			BeanUtils.copyProperties(tapoteur, response);
+			response.setPunition(tapoteur.getPunition().name());
+			
 			response.setVoie(tapoteur.getAdresse().getVoie());
 			response.setNumero(tapoteur.getAdresse().getNumero());
 			response.setCp(tapoteur.getAdresse().getCp());
 			response.setVille(tapoteur.getAdresse().getVille());
 			response.setPays(tapoteur.getAdresse().getPays());
+			
+			System.out.println(tapoteur.getPunition());
+			System.out.println(response.getPunition());
 			
 			return response;
 			

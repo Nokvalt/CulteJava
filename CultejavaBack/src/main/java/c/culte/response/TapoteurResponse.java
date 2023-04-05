@@ -18,11 +18,11 @@ public class TapoteurResponse {
 	private String cp;
 	private String pays;
 	private String rang;
+	protected String punition;
+	protected String imageProfil;
 	
 	//fidele
 	protected double sommeDon;
-	protected String punition;
-	protected String imageProfil;
 	
 	//indenteur
 	private Integer demandeId;
@@ -159,6 +159,8 @@ public class TapoteurResponse {
 	public void setImageProfil(String imageProfil) {
 		this.imageProfil = imageProfil;
 	}
+	
+	
 	
 	
 	
