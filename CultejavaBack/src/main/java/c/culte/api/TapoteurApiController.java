@@ -645,12 +645,9 @@ public class TapoteurApiController {
 		return daoT.save(tapoteur);
 	}
 	
-	@PutMapping("/removePunition/{id}")
+	@GetMapping("/removePunition/{id}")
 	@JsonView(Views.Tapoteur.class)
-	public Tapoteur removePunition(@PathVariable int id, BindingResult result) {
-		if (result.hasErrors()) {
-			throw new PunitionBadRequestException();
-		}
+	public Tapoteur removePunition(@PathVariable int id) {
 		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
 		tapoteur.setPunition(Punition.valueOf("aucune"));
 		
