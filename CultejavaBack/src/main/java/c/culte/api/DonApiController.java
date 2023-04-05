@@ -24,6 +24,7 @@ import c.culte.exception.DonBadRequestException;
 import c.culte.exception.DonNotFoundException;
 import c.culte.exception.TapoteurNotFoundException;
 import c.culte.model.Don;
+import c.culte.model.GrandDev;
 import c.culte.model.Tapoteur;
 import c.culte.request.DonRequest;
 import c.culte.response.DonResponse;
@@ -83,6 +84,10 @@ public class DonApiController {
 		BeanUtils.copyProperties(donRequest, don);
 		
 		don.setTapoteur(tapoteur);
+		
+		GrandDev dev = this.daoTapoteur.findGrandDev();
+		dev.setAllDons(don.getMontant());
+		daoTapoteur.save(dev);
 		
 		return daoDon.save(don);
 	}

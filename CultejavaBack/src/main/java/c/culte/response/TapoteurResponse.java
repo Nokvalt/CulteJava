@@ -4,21 +4,66 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public abstract class TapoteurResponse {
-	protected Integer id;
-	protected String nom;
-	protected String prenom;
-	protected String login;
-	protected String password;
+public class TapoteurResponse {
+	private Integer id;
+	private String nom;
+	private String prenom;
+	private String login;
+	private String password;
 	@JsonFormat(pattern="yyyy-MM-dd")
-	protected LocalDate dateAdhesion;
+	private LocalDate dateAdhesion;
+	private String numero;
+	private String voie;
+	private String ville;
+	private String cp;
+	private String pays;
+	private String rang;
+	
+	//fidele
 	protected double sommeDon;
-	protected String numero;
-	protected String voie;
-	protected String ville;
-	protected String cp;
-	protected String pays;
 	protected String imageProfil;
+	
+	//indenteur
+	private Integer demandeId;
+	private double demandeMontant;
+	private String demandeStatut;
+	
+	//compileur
+	
+	//grandev
+	private double allDons;
+	private double argentVole;
+	
+	public double getAllDons() {
+		return allDons;
+	}
+	public void setAllDons(double allDons) {
+		this.allDons = allDons;
+	}
+	public double getArgentVole() {
+		return argentVole;
+	}
+	public void setArgentVole(double argentVole) {
+		this.argentVole = argentVole;
+	}
+	public Integer getDemandeId() {
+		return demandeId;
+	}
+	public void setDemandeId(Integer demandeId) {
+		this.demandeId = demandeId;
+	}
+	public double getDemandeMontant() {
+		return demandeMontant;
+	}
+	public void setDemandeMontant(double demandeMontant) {
+		this.demandeMontant = demandeMontant;
+	}
+	public String getDemandeStatut() {
+		return demandeStatut;
+	}
+	public void setDemandeStatut(String demandeStatut) {
+		this.demandeStatut = demandeStatut;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -58,7 +103,10 @@ public abstract class TapoteurResponse {
 	public void setDateAdhesion(LocalDate dateAdhesion) {
 		this.dateAdhesion = dateAdhesion;
 	}
-	public abstract String getRang();
+	
+	public String getRang() {
+		return rang;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -95,12 +143,19 @@ public abstract class TapoteurResponse {
 	public void setPays(String pays) {
 		this.pays = pays;
 	}
+	public void setRang(String rang) {
+		this.rang = rang;
+	}
 	public String getImageProfil() {
 		return imageProfil;
 	}
 	public void setImageProfil(String imageProfil) {
 		this.imageProfil = imageProfil;
 	}
+	
+	
+	
+	
 	
 	
 }

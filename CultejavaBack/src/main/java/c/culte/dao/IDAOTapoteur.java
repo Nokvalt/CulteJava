@@ -1,6 +1,5 @@
 package c.culte.dao;
 
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import c.culte.model.Compileur;
-import c.culte.model.Evenement;
 import c.culte.model.Fidele;
 import c.culte.model.GrandDev;
 import c.culte.model.Indenteur;
@@ -25,7 +23,7 @@ public interface IDAOTapoteur extends JpaRepository<Tapoteur,Integer> {
 	public List<Compileur> findAllCompileur();
 	
 	@Query("SELECT d FROM GrandDev d")
-	public List<GrandDev> findAllGrandDev();
+	public GrandDev findGrandDev();
 	
 	@Query("select t from Tapoteur t left join fetch t.inscriptions where t.id = ?1")
 	public Optional<Tapoteur> findByIdWithInscriptions(int evenementId);

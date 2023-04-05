@@ -17,6 +17,11 @@ public class GrandDev extends Tapoteur {
 	@Column(length=10)
 	private String colPull;
 	
+	@Column()
+	private Double allDons = 0.0;
+	@Column()
+	private Double argentVole = 0.0;
+	
 	
 	
 	
@@ -37,5 +42,23 @@ public class GrandDev extends Tapoteur {
 	public void setColPull(String colPull) {
 		this.colPull = colPull;
 	}
+
+	public Double getAllDons() {
+		return allDons;
+	}
+
+	public void setAllDons(Double sommeDons) {
+		this.allDons = sommeDons;
+	}
+
+	public Double getArgentVole() {
+		return argentVole;
+	}
+
+	public void setArgentVole(Double argentVole) {
+		this.argentVole = argentVole;
+	}
+	
+	
 
 }

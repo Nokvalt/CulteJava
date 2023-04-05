@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -41,11 +42,8 @@ import c.culte.request.FideleRequest;
 import c.culte.request.GrandDevRequest;
 import c.culte.request.IndenteurRequest;
 import c.culte.request.InscriptionRequest;
+import c.culte.request.TapoteurRequest;
 import c.culte.request.UserEditRequest;
-import c.culte.response.CompileurResponse;
-import c.culte.response.FideleResponse;
-import c.culte.response.GrandDevResponse;
-import c.culte.response.IndenteurResponse;
 import c.culte.response.TapoteurResponse;
 import jakarta.validation.Valid;
 
@@ -66,17 +64,19 @@ public class TapoteurApiController {
 	@PostMapping("/connexion")
 	public TapoteurResponse findByLogin(@RequestBody @Valid ConnexionRequest connexionRequest, BindingResult result){		
 		Tapoteur tapoteur = daoT.findByLoginWithoutBannis(connexionRequest.getLogin()).orElseThrow(TapoteurNotFoundException::new);
-		TapoteurResponse response;
+		TapoteurResponse response = new TapoteurResponse();
 		
 		if (tapoteur.getPassword().equals(connexionRequest.getPassword())) {
 			if (tapoteur instanceof Fidele) {
-				response = new FideleResponse();
+				response.setRang("Fidele");
 			}else if (tapoteur instanceof Compileur) {
-				response = new CompileurResponse();
+				response.setRang("Compileur");
 			}else if(tapoteur instanceof Indenteur) {
-				response = new IndenteurResponse();
+				response.setRang("Indenteur");
 			}else{
-				response = new GrandDevResponse();
+				response.setRang("Grand Dev");
+				response.setAllDons(((GrandDev) tapoteur).getAllDons());
+				response.setArgentVole(((GrandDev) tapoteur).getArgentVole());
 			}
 			
 			BeanUtils.copyProperties(tapoteur, response);
@@ -99,17 +99,19 @@ public class TapoteurApiController {
 	public List<TapoteurResponse> findAll(){
 		List<TapoteurResponse> responses = new ArrayList<>();
 		List<Tapoteur> tapoteurs = daoT.findAllWithoutBannis();
-		TapoteurResponse response;
+		TapoteurResponse response = new TapoteurResponse();
 		
 		for (Tapoteur t : tapoteurs) {
 			if (t instanceof Fidele) {
-				response = new FideleResponse();
+				response.setRang("Fidele");
 			}else if (t instanceof Compileur) {
-				response = new CompileurResponse();
+				response.setRang("Compileur");
 			}else if(t instanceof Indenteur) {
-				response = new IndenteurResponse();
+				response.setRang("Indenteur");//AJOUTER LES DEMANDES
 			}else{
-				response = new GrandDevResponse();
+				response.setRang("Grand Dev");
+				response.setArgentVole(((GrandDev) t).getArgentVole());
+				response.setAllDons(((GrandDev) t).getAllDons());
 			}
 			
 			BeanUtils.copyProperties(t, response);
@@ -126,12 +128,12 @@ public class TapoteurApiController {
 	
 	//FIND ALL FIDELES
 	@GetMapping("/fideles")
-	public List<FideleResponse> findAllFidele(){
+	public List<TapoteurResponse> findAllFidele(){
 		List<Fidele> fideles = daoT.findAllFidele();
-		List<FideleResponse> responses = new ArrayList<>();
+		List<TapoteurResponse> responses = new ArrayList<>();
 		
 		for (Fidele f : fideles) {
-			FideleResponse resp = new FideleResponse();
+			TapoteurResponse resp = new TapoteurResponse();
 			BeanUtils.copyProperties(f, resp);
 			
 			resp.setVoie(f.getAdresse().getVoie());
@@ -139,6 +141,8 @@ public class TapoteurApiController {
 			resp.setCp(f.getAdresse().getCp());
 			resp.setVille(f.getAdresse().getVille());
 			resp.setPays(f.getAdresse().getPays());
+			
+			resp.setRang("Fidele");
 			
 			responses.add(resp);
 		}
@@ -148,12 +152,12 @@ public class TapoteurApiController {
 	
 	//FIND ALL COMPILEUR
 		@GetMapping("/compileurs")
-		public List<CompileurResponse> findAllCompileur(){
+		public List<TapoteurResponse> findAllCompileur(){
 			List<Compileur> compileurs = daoT.findAllCompileur();
-			List<CompileurResponse> responses = new ArrayList<>();
+			List<TapoteurResponse> responses = new ArrayList<>();
 			
 			for (Compileur c : compileurs) {
-				CompileurResponse resp = new CompileurResponse();
+				TapoteurResponse resp = new TapoteurResponse();
 				BeanUtils.copyProperties(c, resp);
 				
 				resp.setVoie(c.getAdresse().getVoie());
@@ -161,6 +165,8 @@ public class TapoteurApiController {
 				resp.setCp(c.getAdresse().getCp());
 				resp.setVille(c.getAdresse().getVille());
 				resp.setPays(c.getAdresse().getPays());
+				
+				resp.setRang("Compileur");
 				
 				responses.add(resp);
 			}
@@ -170,12 +176,12 @@ public class TapoteurApiController {
 		
 	//FIND ALL INDENTEURS
 	@GetMapping("/indenteurs")
-	public List<IndenteurResponse> findAllIndenteur(){
+	public List<TapoteurResponse> findAllIndenteur(){
 		List<Indenteur> indenteurs = daoT.findAllIndenteur();
-		List<IndenteurResponse> responses = new ArrayList<>();
+		List<TapoteurResponse> responses = new ArrayList<>();
 					
 		for (Indenteur i : indenteurs) {
-			IndenteurResponse resp = new IndenteurResponse();
+			TapoteurResponse resp = new TapoteurResponse();
 			BeanUtils.copyProperties(i, resp);
 			
 			resp.setVoie(i.getAdresse().getVoie());
@@ -183,6 +189,8 @@ public class TapoteurApiController {
 			resp.setCp(i.getAdresse().getCp());
 			resp.setVille(i.getAdresse().getVille());
 			resp.setPays(i.getAdresse().getPays());
+			
+			resp.setRang("Indenteur");
 						
 			responses.add(resp);
 		}
@@ -192,40 +200,38 @@ public class TapoteurApiController {
 	
 	//FIND GRAND DEV
 	@GetMapping("/GrandDev")
-	public List<GrandDevResponse> findGrandDev(){
-		List<GrandDev> dave = daoT.findAllGrandDev();
-		List<GrandDevResponse> responses = new ArrayList<>();
-						
-		for (GrandDev d : dave) {
-			GrandDevResponse resp = new GrandDevResponse();
-			BeanUtils.copyProperties(d, resp);
+	public TapoteurResponse findGrandDev(){
+		GrandDev d = daoT.findGrandDev();
+	
+	
+		TapoteurResponse resp = new TapoteurResponse();
+		BeanUtils.copyProperties(d, resp);
 			
-			resp.setVoie(d.getAdresse().getVoie());
-			resp.setNumero(d.getAdresse().getNumero());
-			resp.setCp(d.getAdresse().getCp());
-			resp.setVille(d.getAdresse().getVille());
-			resp.setPays(d.getAdresse().getPays());
-							
-			responses.add(resp);
-		}
-						
-		return responses;
+		resp.setVoie(d.getAdresse().getVoie());
+		resp.setNumero(d.getAdresse().getNumero());
+		resp.setCp(d.getAdresse().getCp());
+		resp.setVille(d.getAdresse().getVille());
+		resp.setPays(d.getAdresse().getPays());
+		
+		resp.setRang("Grand Dev");
+				
+		return resp;
 	}
 	
 	// --------- FIND BY ID --------- //
 	@GetMapping("/{id}")
 	public TapoteurResponse findById(@PathVariable int id){
 		Tapoteur tapoteur = daoT.findById(id).orElseThrow(TapoteurNotFoundException::new);
-		TapoteurResponse response;
+		TapoteurResponse response = new TapoteurResponse();
 		
 		if (tapoteur instanceof Fidele) {
-			response = new FideleResponse();
+			response.setRang("Fidele");
 		}else if (tapoteur instanceof Compileur) {
-			response = new CompileurResponse();
+			response.setRang("Compileur");
 		}else if(tapoteur instanceof Indenteur) {
-			response = new IndenteurResponse();
+			response.setRang("Indenteur");
 		}else{
-			response = new GrandDevResponse();
+			response.setRang("Grand Dev");
 		}
 		
 		BeanUtils.copyProperties(tapoteur, response);
@@ -324,6 +330,8 @@ public class TapoteurApiController {
 			BeanUtils.copyProperties(grandDevRequest, dave);
 					
 			dave.setAdresse(adresse);
+			
+			System.out.println(dave);
 			return daoT.save(dave);
 		}
 	
@@ -591,9 +599,28 @@ public class TapoteurApiController {
 		GrandDev newDave = new GrandDev();
 		
 		BeanUtils.copyProperties(tapoteur, newDave);
+		newDave.setArgentVole(0.0);
+		
+		GrandDev dev = this.daoT.findGrandDev();
+		dev.setArgentVole(0.0);
+		newDave.setAllDons(dev.getAllDons()); //recuperer la somme des dons dans le nouveau grand dev
+		
 		daoT.delete(tapoteur);
 		
 		return daoT.save(newDave);
 	}
 	
+	
+	// --------- VOLER LA CAGNOTTE --------- //
+	@GetMapping("/vider")
+	@JsonView(Views.Tapoteur.class)
+	public TapoteurResponse viderCagnotte() {
+		GrandDev dev = this.daoT.findGrandDev();
+		TapoteurResponse response = new TapoteurResponse();
+		dev.setArgentVole(dev.getArgentVole() + dev.getAllDons());
+		dev.setAllDons(0.0);
+		
+		BeanUtils.copyProperties(dev, response);
+		return response;
+	}
 }
