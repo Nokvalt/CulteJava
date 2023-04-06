@@ -58,6 +58,26 @@ public class DonApiController {
 		return responses;
 	}
 	
+	@GetMapping("by-tapoteur/{id}")
+	public List<DonResponse> findAllDonByTapoteurId(@PathVariable int id){
+		List <Don> dons = daoDon.findAllDonByTapoteurId(id);
+		List <DonResponse> responses = new ArrayList<>();
+		
+		for (Don d : dons) {
+			DonResponse response = new DonResponse();
+			BeanUtils.copyProperties(d, response);
+			response.setTapoteurId(d.getTapoteur().getId());
+			response.setTapoteurNom(d.getTapoteur().getNom());
+			response.setTapoteurPrenom(d.getTapoteur().getPrenom());
+			
+			responses.add(response);
+		}
+		
+		System.out.println(responses);
+		return responses;
+	}
+	
+	
 	@GetMapping("/{id}")
 	public DonResponse findById(@PathVariable int id) {
 		Don don = daoDon.findById(id).orElseThrow(DonNotFoundException::new);

@@ -10,5 +10,7 @@ import c.culte.model.Don;
 public interface IDAODon extends JpaRepository<Don,Integer>{
 	@Query("SELECT d FROM Don d")
 	List<Don> findAllDon();
+	
+	List<Don> findAllDonByTapoteurId(Integer tapoteurId);
 
 }
