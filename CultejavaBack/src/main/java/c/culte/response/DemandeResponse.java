@@ -6,9 +6,11 @@ public class DemandeResponse {
 	
 	private Integer id;
 	private Integer indenteurid;
+	private String indenteurnom;
+	private String indenteurprenom;
 	private double montant;
 	private String descriptif;
-	private Statut statut;
+	private String statut;
 
 
 	public Integer getId() {
@@ -36,11 +38,11 @@ public class DemandeResponse {
 		this.descriptif = descriptif;
 	}
 
-	public Statut getStatut() {
+	public String getStatut() {
 		return statut;
 	}
 
-	public void setStatut(Statut statut) {
+	public void setStatut(String statut) {
 		this.statut = statut;
 	}
 
@@ -51,4 +53,31 @@ public class DemandeResponse {
 	public void setIndenteurid(Integer indenteurid) {
 		this.indenteurid = indenteurid;
 	}
+	
+	
+	
+
+	public String getIndenteurnom() {
+		return indenteurnom;
+	}
+
+	public void setIndenteurnom(String indenteurnom) {
+		this.indenteurnom = indenteurnom;
+	}
+
+	public String getIndenteurprenom() {
+		return indenteurprenom;
+	}
+
+	public void setIndenteurprenom(String indenteurprenom) {
+		this.indenteurprenom = indenteurprenom;
+	}
+
+	@Override
+	public String toString() {
+		return "DemandeResponse [id=" + id + ", indenteurid=" + indenteurid + ", montant=" + montant + ", descriptif="
+				+ descriptif + ", statut=" + statut + "]";
+	}
+	
+	
 }

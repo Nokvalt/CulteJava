@@ -1,7 +1,9 @@
 package c.culte.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import c.culte.exception.DemandeNotFoundException;
 import c.culte.model.Demande;
 import c.culte.model.Indenteur;
 import c.culte.request.DemandeRequest;
+import c.culte.response.DemandeResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -38,9 +41,30 @@ public class DemandeApiController {
 		
 	//liste des demandes
 	@GetMapping
+	public List<DemandeResponse> findAll() {
+		List<Demande> demandes  = this.daoDemande.findAll();
+		List<DemandeResponse> responses = new ArrayList<>();
+		
+		for (Demande d : demandes) {
+			DemandeResponse resp = new DemandeResponse();
+			BeanUtils.copyProperties(d, resp);
+			resp.setIndenteurid(d.getIndenteur().getId());
+			resp.setIndenteurnom(d.getIndenteur().getNom());
+			resp.setIndenteurprenom(d.getIndenteur().getPrenom());
+			
+			resp.setStatut(d.getStatut().name());
+
+			responses.add(resp);
+		}
+		System.out.println(responses);
+		return responses;
+	}
+	
+	//liste des demandes par indenteur id
+	@GetMapping("/by-indenteur/{id}")
 	@JsonView(Views.Demande.class)
-	public List<Demande> findAll() {
-		return this.daoDemande.findAll();
+	public List<Demande> findAllByIndenteurid(@PathVariable Integer id) {
+		return this.daoDemande.findAllByIndenteurId(id);
 	}
 	
 	//trouver une demande par ID

@@ -3,10 +3,8 @@ package c.culte.request;
 import c.culte.model.Statut;
 
 public class DemandeRequest {
-
-	
 		private String descriptif;
-		private Integer indenteurid ; 
+		private Integer indenteurid; 
 		private double montant;
 		private Statut statut = Statut.enAttente;
 		
