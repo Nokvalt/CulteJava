@@ -8,7 +8,7 @@ public class DemandeResponse {
 	private Integer indenteurid;
 	private double montant;
 	private String descriptif;
-	private Statut statut = Statut.enAttente;
+	private Statut statut;
 
 
 	public Integer getId() {
@@ -18,7 +18,6 @@ public class DemandeResponse {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 
 	public double getMontant() {
