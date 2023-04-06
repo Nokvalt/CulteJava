@@ -5,11 +5,10 @@ import c.culte.model.Statut;
 public class DemandeResponse {
 	
 	private Integer id;
-	private String nom;
-	private String prenom;
+	private Integer indenteurid;
 	private double montant;
 	private String descriptif;
-	private Statut statut;
+	private Statut statut = Statut.enAttente;
 
 
 	public Integer getId() {
@@ -20,21 +19,7 @@ public class DemandeResponse {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
-	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
 
 	public double getMontant() {
 		return montant;
@@ -58,5 +43,13 @@ public class DemandeResponse {
 
 	public void setStatut(Statut statut) {
 		this.statut = statut;
+	}
+
+	public Integer getIndenteurid() {
+		return indenteurid;
+	}
+
+	public void setIndenteurid(Integer indenteurid) {
+		this.indenteurid = indenteurid;
 	}
 }

@@ -36,6 +36,7 @@ public class Demande {
 	@OneToOne
 	@JoinColumn(name="indenteur", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonView(Views.Demande.class)
 	private Indenteur indenteur;
 	
 	public Demande() {}

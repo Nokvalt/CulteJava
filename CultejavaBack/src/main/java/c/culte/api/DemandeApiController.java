@@ -85,7 +85,7 @@ public class DemandeApiController {
 		return this.daoDemande.save(demande);
 	}
 	
-	/*@PutMapping("/statut/{id}")
+	@PutMapping("/statut/{id}")
 	@JsonView(Views.Demande.class)
 	public Demande editdemandestatut(@PathVariable int id, @Valid @RequestBody DemandeRequest demandeRequest, BindingResult result) {
 		if (result.hasErrors()) {
@@ -96,7 +96,7 @@ public class DemandeApiController {
 		BeanUtils.copyProperties(demandeRequest, demande);
 		
 		return this.daoDemande.save(demande);
-	}*/
+	}
 	
 	//Effacer une demande
 	@DeleteMapping("/{id}")

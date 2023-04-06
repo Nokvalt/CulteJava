@@ -4,6 +4,7 @@ import c.culte.model.Statut;
 
 public class DemandeRequest {
 
+	
 		private String descriptif;
 		private Integer indenteurid ; 
 		private double montant;
