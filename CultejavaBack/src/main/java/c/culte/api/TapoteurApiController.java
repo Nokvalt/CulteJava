@@ -628,8 +628,10 @@ public class TapoteurApiController {
 		TapoteurResponse response = new TapoteurResponse();
 		dev.setArgentVole(dev.getArgentVole() + dev.getAllDons());
 		dev.setAllDons(0.0);
+		daoT.save(dev);
 		
 		BeanUtils.copyProperties(dev, response);
+		
 		return response;
 	}
 	// --------- PUNITIONS --------- //
